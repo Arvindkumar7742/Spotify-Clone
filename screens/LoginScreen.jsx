@@ -1,11 +1,55 @@
-import { View, Text, SafeAreaView, Pressable } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  Text,
+  SafeAreaView,
+  Pressable,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Entypo from "@expo/vector-icons/Entypo";
-import Feather from "@expo/vector-icons/Feather";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { useAuthRequest } from "expo-auth-session";
+import { authConfig } from "../config/authConfig";
 
 const LoginScreen = () => {
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+
+  const [request, response, promptAsync] = useAuthRequest(
+    {
+      ...authConfig.config,
+    },
+    {
+      ...authConfig.discovery,
+    }
+  );
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      console.log("Auth Response:", response);
+
+      const accessToken = response.params;
+      console.log("Access Token:", accessToken);
+
+      // Save accessToken to state or secure storage
+    } else if (response?.type === "error") {
+      console.error("Auth Error:", response.error);
+      Alert.alert("Error", response.error);
+    }
+  }, [response]);
+
+  const handleLogin = async () => {
+    if (!request || isAuthenticating) return;
+    try {
+      console.log("Prompting Spotify Auth...");
+      setIsAuthenticating(true);
+      await promptAsync();
+      setIsAuthenticating(false);
+    } catch (err) {
+      console.log("Prompt async error:", err);
+      Alert.alert("Error", err.message);
+    }
+  };
+
   return (
     <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
       <SafeAreaView>
@@ -13,34 +57,39 @@ const LoginScreen = () => {
           name="spotify"
           size={80}
           color="white"
-          className="mt-[80px] text-center"
+          style={{ textAlign: "center", marginTop: 80 }}
         />
-        <Text className="text-white font-bold text-center text-4xl mt-20">
-          Millions of Songs Free on spotify!
+        <Text
+          style={{
+            color: "white",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: 24,
+            marginTop: 20,
+          }}
+        >
+          Millions of Songs Free on Spotify!
         </Text>
-        <Pressable className="text-white bg-[#1DB954] m-10 mt-20 mb-3 p-2 rounded-[20px]">
-          <Text className="text-center text-lg">Sign in with Spotify</Text>
-        </Pressable>
 
-        <Pressable className="text-white m-10 mt-0 mb-3 p-2 rounded-[20px] border-[2px] border-slate-500">
-          <View className="text-center flex-row justify-evenly items-center">
-            <Feather name="smartphone" size={22} color="white" />
-            <Text className="text-white text-lg">Continue With Phone</Text>
-          </View>
-        </Pressable>
-
-        <Pressable className="text-white m-10 mt-0 mb-3 p-2 rounded-[20px] border-[2px] border-slate-500">
-          <View className="text-center flex-row justify-evenly items-center">
-            <AntDesign name="google" size={22} color="white" />
-            <Text className="text-white text-lg">Continue With Google</Text>
-          </View>
-        </Pressable>
-
-        <Pressable className="text-white m-10 mt-0 mb-3 p-2 rounded-[20px] border-[2px] border-slate-500">
-          <View className="text-center flex-row justify-evenly items-center">
-            <Entypo name="facebook" size={22} color="white" />
-            <Text className="text-white text-lg">Continue With Facebook</Text>
-          </View>
+        <Pressable
+          disabled={!request || isAuthenticating}
+          onPress={handleLogin}
+          style={{
+            backgroundColor: isAuthenticating ? "#128C45" : "#1DB954",
+            margin: 10,
+            marginTop: 20,
+            padding: 10,
+            borderRadius: 20,
+            opacity: isAuthenticating ? 0.6 : 1,
+          }}
+        >
+          {isAuthenticating ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={{ color: "white", textAlign: "center", fontSize: 18 }}>
+              Sign in with Spotify
+            </Text>
+          )}
         </Pressable>
       </SafeAreaView>
     </LinearGradient>
