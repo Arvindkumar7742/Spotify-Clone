@@ -44,7 +44,6 @@ const LoginScreen = () => {
 
       const accessToken = await AsyncStorage.getItem("token");
       const expirationDate = await AsyncStorage.getItem("expirationDate");
-
       console.log("Retrieved access token:", accessToken);
       console.log("Retrieved expiration date:", expirationDate);
 
@@ -98,31 +97,20 @@ const LoginScreen = () => {
           name="spotify"
           size={80}
           color="white"
-          style={{ textAlign: "center", marginTop: 80 }}
+          className="text-center mt-[150px]"
         />
-        <Text
-          style={{
-            color: "white",
-            fontWeight: "bold",
-            textAlign: "center",
-            fontSize: 24,
-            marginTop: 20,
-          }}
-        >
+        <Text className="text-white font-bold text-center text-[28px] p-5 mt-8">
           Millions of Songs Free on Spotify!
         </Text>
 
         <Pressable
           disabled={!request || isAuthenticating}
           onPress={handleLogin}
-          style={{
-            backgroundColor: isAuthenticating ? "#128C45" : "#1DB954",
-            margin: 10,
-            marginTop: 20,
-            padding: 10,
-            borderRadius: 20,
-            opacity: isAuthenticating ? 0.6 : 1,
-          }}
+          className={`m-10 p-3 rounded-[20px] ${
+            isAuthenticating
+              ? "opacity-60 bg-[#128C45]"
+              : "opacity-100 bg-[#1DB954]"
+          }`}
         >
           {isAuthenticating ? (
             <ActivityIndicator color="white" />
