@@ -91,6 +91,16 @@ function Navigation() {
             component={BottomTabs}
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="Liked"
+            component={BottomTabs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Info"
+            component={BottomTabs}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </NavigationIndependentTree>

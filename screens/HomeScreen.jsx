@@ -5,6 +5,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import AlbumList from "../components/AlbumList";
+import TopArtists from "../components/artist/TopArtists";
+import RecentlyPlayed from "../components/recently_played/RecentlyPlayed";
 
 const HomeScreen = () => {
   const [userProfile, setUserProfile] = useState();
@@ -95,7 +97,13 @@ const HomeScreen = () => {
           </View>
         </View>
 
-        <AlbumList />
+        {/*Top release vala kern hai <AlbumList /> */}
+
+        {/* users's top artists */}
+        <TopArtists />
+
+        {/* user's recently played songs */}
+        <RecentlyPlayed />
       </ScrollView>
     </LinearGradient>
   );
