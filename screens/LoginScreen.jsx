@@ -9,9 +9,9 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useAuthRequest } from "expo-auth-session";
-import { authConfig } from "../config/authConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { authConfig } from "../config";
 
 const LoginScreen = () => {
   const navigation = useNavigation();

@@ -1,4 +1,4 @@
-import { CLIENT_ID, AUTHORIZATION_ENDPOINT } from "@env";
+import { CLIENT_ID, AUTHORIZATION_ENDPOINT, BASE_URL } from "@env";
 import { makeRedirectUri, ResponseType } from "expo-auth-session";
 
 // exporting the auth config
@@ -24,4 +24,9 @@ export const authConfig = {
   discovery: {
     authorizationEndpoint: AUTHORIZATION_ENDPOINT,
   },
+};
+
+// export the api config
+export const apiConfig = {
+  baseUrl: BASE_URL,
 };

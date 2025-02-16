@@ -1,0 +1,4 @@
+// PROFILE ENDPOINTS
+export const PROFILE_ENDPOINTS = {
+  GET_CURRENT_USER: "/v1/me",
+};
