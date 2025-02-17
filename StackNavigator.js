@@ -15,6 +15,8 @@ import EvilIcons from "@expo/vector-icons/EvilIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import LibraryScreen from "./screens/LibraryScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import ArtistScreen from "./screens/ArtistScreen";
+import SongInfo from "./screens/SongInfo";
 
 const Tab = createBottomTabNavigator();
 
@@ -124,8 +126,13 @@ function Navigation() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="ArtistScreen"
+            component={ArtistScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Info"
-            component={BottomTabs}
+            component={SongInfo}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

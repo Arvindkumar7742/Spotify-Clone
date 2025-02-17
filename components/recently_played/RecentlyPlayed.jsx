@@ -35,6 +35,7 @@ const RecentlyPlayed = () => {
         renderItem={({ item, index }) => (
           <RecentlyPlayedCard item={item} key={index} />
         )}
+        contentContainerStyle={{ paddingBottom: 60 }}
       />
     </>
   );
