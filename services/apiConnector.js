@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const axiosInstance = axios.create({});
 const baseURL = apiConfig.baseUrl;
 
-export const axiosRequest = async (method, url, bodyData, headers, params) => {
+export const axiosRequest = async (method, url, bodyData, params) => {
   const accessToken = await AsyncStorage.getItem("token");
   return axiosInstance({
     method: `${method}`,

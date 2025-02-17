@@ -3,6 +3,7 @@ export const USER_ENDPOINTS = {
   GET_CURRENT_USER: "/me",
   GET_TOP_ITEMS: "/me/top",
   GET_RECENTLY_PLAYED: "/me/player/recently-played",
+  GET_LIKED_TRACKS: "/me/tracks",
 };
 
 // ALBUM ENDPOINTS

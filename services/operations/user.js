@@ -1,7 +1,12 @@
 import { axiosRequest } from "../apiConnector";
 import { USER_ENDPOINTS } from "../apiEndpoints";
 
-const { GET_CURRENT_USER, GET_TOP_ITEMS, GET_RECENTLY_PLAYED } = USER_ENDPOINTS;
+const {
+  GET_CURRENT_USER,
+  GET_TOP_ITEMS,
+  GET_RECENTLY_PLAYED,
+  GET_LIKED_TRACKS,
+} = USER_ENDPOINTS;
 
 // function to get current users's profile
 export async function getCurrentUser() {
@@ -13,7 +18,9 @@ export async function getCurrentUser() {
     }
     return response.data;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(
+      err?.response?.data || err.message || "Error in getting current user"
+    );
   }
 }
 
@@ -35,7 +42,11 @@ export async function getUsersTopItems(type) {
     }
     return response.data?.items;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(
+      err?.response?.data ||
+        err.message ||
+        "Error in getting the Top items data"
+    );
   }
 }
 
@@ -51,6 +62,28 @@ export async function getRecentlyPlayed() {
     }
     return response.data?.items;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(
+      err?.response?.data ||
+        err.message ||
+        "Error in getting the recently played songs"
+    );
+  }
+}
+
+// function to get user's like songs
+export async function getLikedTracks() {
+  try {
+    let response = await axiosRequest("GET", GET_LIKED_TRACKS, null, null, {
+      limit: 40,
+    });
+
+    if (!response?.data) {
+      throw new Error("Unexpected response format");
+    }
+    return response.data?.items;
+  } catch (err) {
+    throw new Error(
+      err?.response?.data || err.message || "Error in getting the Liked Songs"
+    );
   }
 }

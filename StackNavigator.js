@@ -10,6 +10,7 @@ import {
   NavigationIndependentTree,
 } from "@react-navigation/native";
 import LoginScreen from "./screens/LoginScreen";
+import LikedSongsScreen from "./screens/LikedSongsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -93,7 +94,7 @@ function Navigation() {
           />
           <Stack.Screen
             name="Liked"
-            component={BottomTabs}
+            component={LikedSongsScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
