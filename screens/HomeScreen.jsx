@@ -38,20 +38,26 @@ const HomeScreen = () => {
           }}
         >
           <View className="flex-row items-center">
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 20,
-                resizeMode: "cover",
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Profile");
               }}
-              source={{
-                uri:
-                  userProfile?.images.length > 0
-                    ? userProfile?.images[0].url
-                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQABqQIdskCD9BK0I81EbVfV9tTz320XvJ35A&s",
-              }}
-            />
+            >
+              <Image
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20,
+                  resizeMode: "cover",
+                }}
+                source={{
+                  uri:
+                    userProfile?.images.length > 0
+                      ? userProfile?.images[0].url
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQABqQIdskCD9BK0I81EbVfV9tTz320XvJ35A&s",
+                }}
+              />
+            </Pressable>
 
             <View className="mx-3 my-1 flex-row items-center space-x-2">
               <Pressable className="bg-[#309635] p-2 pl-6 pr-6 mr-2 rounded-full">
