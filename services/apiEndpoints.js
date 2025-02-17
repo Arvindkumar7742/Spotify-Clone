@@ -10,3 +10,8 @@ export const USER_ENDPOINTS = {
 export const ALBUM_ENDPOINTS = {
   GET_NEW_RELEASES: "/browse/new-releases",
 };
+
+//  SEARCH END POINTS
+export const SEARCH_ENDPOINTS = {
+  GET_CATEGORIZED_RESULT: "/search",
+};

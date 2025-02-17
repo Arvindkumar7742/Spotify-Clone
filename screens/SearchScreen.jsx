@@ -1,37 +1,103 @@
-import { View, Text, TextInput } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Alert,
+  Pressable,
+  BackHandler,
+} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import TopTracks from "../components/TopTracks";
+import { getCategorizedResult } from "../services/operations/search";
+import ShowSearchResults from "../components/search/ShowSearchResults";
 
 const SearchScreen = () => {
-  const [query, setQuery] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
-  function handleTextChange(text) {
-    setQuery(text);
-  }
+  const inputRef = useRef(null);
+
+  const handleTextChange = async (text) => {
+    setSearchText(text);
+  };
+
+  const handleInputBlur = () => {
+    if (inputRef.current) {
+      inputRef.current.blur();
+      setIsSearchInputFocused(false);
+      setSearchText("");
+    }
+  };
+
+  const handleSearch = async () => {
+    try {
+      const result = await getCategorizedResult(searchText);
+
+      if (result) {
+        setSearchResults(result);
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    }
+  };
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (isSearchInputFocused) {
+        handleInputBlur();
+        return true; // Prevent default back navigation
+      }
+      return false; // Allow default back navigation
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      onBackPress
+    );
+    return () => backHandler.remove();
+  }, [isSearchInputFocused]);
 
   return (
-    <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
-      <Text className="text-white m-2 font-bold text-xl ">Search</Text>
-      <View className="relative w-full justify-center p-2">
-        <Ionicons
-          name="search-outline"
-          size={25}
-          color="black"
-          className="absolute z-10 mx-5"
-        />
+    <LinearGradient colors={["#040306", "#131624"]} className="flex-1">
+      <SafeAreaView className="flex-1">
+        <View className="px-4 flex flex-col gap-10 flex-1 pb-[52px]">
+          <View className="w-full mt-10 flex flex-row items-center gap-6">
+            <Text className="text-white text-3xl font-bold">Search</Text>
+          </View>
 
-        <TextInput
-          onChangeText={handleTextChange}
-          value={query}
-          className="bg-white pl-12 text-lg font-semibold rounded-lg"
-          placeholder="What do you want to listen to?"
-          placeholderTextColor="rgba(0, 0, 0, 0.8)"
-        />
-      </View>
+          <View className="relative w-full justify-center">
+            <Pressable onPress={handleInputBlur} className="absolute z-10 mx-4">
+              <Ionicons
+                name={isSearchInputFocused ? "arrow-back" : "search-outline"}
+                size={25}
+                color="black"
+                className=""
+              />
+            </Pressable>
 
-      <TopTracks />
+            <TextInput
+              ref={inputRef}
+              onFocus={() => setIsSearchInputFocused(true)}
+              onBlur={handleSearch}
+              onChangeText={handleTextChange}
+              value={searchText}
+              className="bg-white pl-14 text-lg font-semibold rounded-lg h-16"
+              placeholder="What do you want to listen to?"
+              placeholderTextColor="rgba(0, 0, 0, 0.8)"
+            />
+          </View>
+
+          {!isSearchInputFocused && searchText.trim().length === 0 ? (
+            <TopTracks />
+          ) : (
+            <ShowSearchResults searchResults={searchResults} />
+          )}
+        </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 };

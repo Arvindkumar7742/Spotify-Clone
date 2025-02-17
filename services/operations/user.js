@@ -18,9 +18,7 @@ export async function getCurrentUser() {
     }
     return response.data;
   } catch (err) {
-    throw new Error(
-      err?.response?.data || err.message || "Error in getting current user"
-    );
+    throw new Error("Error in getting current user");
   }
 }
 
@@ -33,7 +31,7 @@ export async function getUsersTopItems(type) {
       null,
       null,
       {
-        limit: 3,
+        limit: 12,
       }
     );
 
@@ -42,11 +40,7 @@ export async function getUsersTopItems(type) {
     }
     return response.data?.items;
   } catch (err) {
-    throw new Error(
-      err?.response?.data ||
-        err.message ||
-        "Error in getting the Top items data"
-    );
+    throw new Error("Error in getting the Top items data");
   }
 }
 
@@ -62,11 +56,7 @@ export async function getRecentlyPlayed() {
     }
     return response.data?.items;
   } catch (err) {
-    throw new Error(
-      err?.response?.data ||
-        err.message ||
-        "Error in getting the recently played songs"
-    );
+    throw new Error("Error in getting the recently played songs");
   }
 }
 
@@ -82,8 +72,6 @@ export async function getLikedTracks() {
     }
     return response.data?.items;
   } catch (err) {
-    throw new Error(
-      err?.response?.data || err.message || "Error in getting the Liked Songs"
-    );
+    throw new Error("Error in getting the Liked Songs");
   }
 }

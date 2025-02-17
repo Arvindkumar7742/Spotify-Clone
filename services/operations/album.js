@@ -17,6 +17,6 @@ export async function getNewReleases() {
 
     return response.data.albums.items;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error("Error in getting new release songs.");
   }
 }
