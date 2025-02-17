@@ -54,7 +54,7 @@ const HomeScreen = () => {
             />
 
             <View className="mx-3 my-1 flex-row items-center space-x-2">
-              <Pressable className="bg-[#282828] p-2 pl-6 pr-6 mr-2 rounded-full">
+              <Pressable className="bg-[#309635] p-2 pl-6 pr-6 mr-2 rounded-full">
                 <Text className="text-white text-base">All</Text>
               </Pressable>
 

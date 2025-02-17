@@ -13,22 +13,7 @@ const TopArtists = () => {
         const result = await getUsersTopItems(type);
 
         if (result) {
-          setTopArtists(
-            result.length > 0
-              ? result
-              : [
-                  {
-                    images: [
-                      {
-                        url: "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228",
-                        height: 300,
-                        width: 300,
-                      },
-                    ],
-                    name: "Dummy",
-                  },
-                ]
-          );
+          setTopArtists(result);
         }
       } catch (err) {
         Alert.alert("Error", err.message);

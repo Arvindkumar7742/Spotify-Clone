@@ -11,6 +11,9 @@ import {
 } from "@react-navigation/native";
 import LoginScreen from "./screens/LoginScreen";
 import LikedSongsScreen from "./screens/LikedSongsScreen";
+import SearchScreen from "./screens/SearchScreen";
+import Feather from "@expo/vector-icons/Feather";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
 
 const Tab = createBottomTabNavigator();
 
@@ -50,6 +53,23 @@ function BottomTabs() {
               <Entypo name="home" size={24} color="white" />
             ) : (
               <AntDesign name="home" size={24} color="white" />
+            ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarLabel: "Search",
+          headerShown: false,
+          tabBarLabelStyle: {
+            color: "white",
+          },
+          tabBarIcon: ({ focused }) =>
+            focused ? (
+              <Feather name="search" size={28} color="white" />
+            ) : (
+              <EvilIcons name="search" size={30} color="white" />
             ),
         }}
       />
