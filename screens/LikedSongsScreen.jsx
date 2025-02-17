@@ -30,10 +30,10 @@ const LikedSongsScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   function handleSearch(text) {
-    // const filteredTracks = savedTracks.filter((item) =>
-    //   item.track.name.toLowerCase().includes(text.toLowerCase())
-    // );
-    // setSearchedTracks(filteredTracks);
+    const filteredTracks = likedTracks.filter((item) =>
+      item.track.name.toLowerCase().includes(text.toLowerCase())
+    );
+    setSearchedTracks(filteredTracks);
   }
   const handleInputChange = (text) => {
     setInput(text);
@@ -86,11 +86,12 @@ const LikedSongsScreen = () => {
                 style={{
                   height: 100,
                   width: 230,
-                  marginTop: "40px",
-                  paddingTop: "20px",
+                  marginTop: 55,
+                  paddingTop: 10,
+                  textAlignVertical: "top",
                   color: "white",
                 }}
-                onChange={handleInputChange}
+                onChangeText={handleInputChange}
                 placeholder="Find in Liked songs"
                 placeholderTextColor="white"
               />
@@ -132,6 +133,13 @@ const LikedSongsScreen = () => {
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             {searchedTracks.length === 0 ? (
               <ActivityIndicator size="large" color="gray" />
+            ) : searchedTracks.length < likedTracks.length ? (
+              <FlatList
+                data={searchedTracks}
+                renderItem={({ item }) => <SongItem item={item} />}
+                showsVerticalScrollIndicator={false}
+                scrollEnabled={false}
+              />
             ) : (
               <FlatList
                 data={likedTracks}
