@@ -15,7 +15,7 @@ export async function getNewReleases() {
       throw new Error("Unexpected response format");
     }
 
-    return response.data;
+    return response.data.albums.items;
   } catch (err) {
     throw new Error(err.message);
   }
