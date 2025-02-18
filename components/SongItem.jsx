@@ -1,14 +1,9 @@
 import { Text, View, Pressable, Image } from "react-native";
 import React, { useContext } from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import { PlayerContext } from "../context/PlayerContext";
 
 const SongItem = ({ item, onPress, isPlaying = false }) => {
-  const { currentTrack, setCurrentTrack } = useContext(PlayerContext);
-  const handlePress = () => {
-    setCurrentTrack(item);
-    // onPress(item);
-  };
+  const handlePress = () => {};
 
   return (
     <Pressable

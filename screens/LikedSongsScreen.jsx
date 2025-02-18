@@ -17,16 +17,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { getLikedTracks } from "../services/operations/user";
 import SongItem from "../components/SongItem";
-import { PlayerContext } from "../context/PlayerContext";
-import CurrentTrack from "../components/CurrentTrack";
-import PlayerModal from "../components/PlayerModal";
 
 const LikedSongsScreen = () => {
   const [input, setInput] = useState("");
   const [likedTracks, savedLikedTracks] = useState([]);
   const navigation = useNavigation();
   const [searchedTracks, setSearchedTracks] = useState([]);
-  const { setCurrentTrack } = useContext(PlayerContext);
   const [modalVisible, setModalVisible] = useState(false);
 
   function handleSearch(text) {
@@ -40,16 +36,7 @@ const LikedSongsScreen = () => {
     handleSearch(text);
   };
 
-  async function playTrack() {
-    if (likedTracks.length > 0) {
-      setCurrentTrack(likedTracks[0]);
-    }
-    await play(likedTracks[0]);
-  }
-
-  const play = async (nextTrack) => {
-    // Linking.openURL(`spotify:track:${nextTrack.track.id}`);
-  };
+  function playTrack() {}
 
   useEffect(() => {
     const fetchLikedTracks = async () => {
@@ -151,18 +138,6 @@ const LikedSongsScreen = () => {
           </ScrollView>
         </ScrollView>
       </LinearGradient>
-
-      <CurrentTrack
-        setModalVisible={setModalVisible}
-        modalVisible={modalVisible}
-      />
-
-      {/* {modalVisible && (
-        <PlayerModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        />
-      )} */}
     </>
   );
 };

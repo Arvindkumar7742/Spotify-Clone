@@ -1,29 +1,16 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { getCurrentUser } from "../services/operations/user";
+import { UserContext } from "../context/UserContext";
 
 const ProfileScreen = () => {
-  const [userProfile, setUserProfile] = useState(null);
   const navigation = useNavigation();
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const result = await getCurrentUser();
-
-        if (result) {
-          setUserProfile(result);
-        }
-      } catch (err) {
-        Alert.alert("Error", err.message);
-      }
-    };
-    fetchCurrentUser();
-  }, []);
   return (
     <View className="flex-1">
       <LinearGradient
@@ -48,17 +35,17 @@ const ProfileScreen = () => {
               }}
               source={{
                 uri:
-                  userProfile?.images.length > 0
-                    ? userProfile?.images[0].url
+                  user?.images.length > 0
+                    ? user?.images[0].url
                     : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQABqQIdskCD9BK0I81EbVfV9tTz320XvJ35A&s",
               }}
             />
             <View className="gap-2">
               <Text className="text-white font-bold text-2xl">
-                {userProfile?.display_name}
+                {user?.display_name}
               </Text>
               <Text className="text-white font-bold text-sm">
-                {userProfile?.followers.total}
+                {user?.followers.total}
                 <Text className="text-gray-400 font-semibold"> followers</Text>
                 <Text className="text-white"> • </Text>8
                 <Text className="text-gray-400 font-semibold"> following</Text>

@@ -6,6 +6,8 @@ const {
   GET_TOP_ITEMS,
   GET_RECENTLY_PLAYED,
   GET_LIKED_TRACKS,
+  GET_FOLLOWED_ARTIST,
+  GET_USERS_PLAYLISTS,
 } = USER_ENDPOINTS;
 
 // function to get current users's profile
@@ -73,5 +75,37 @@ export async function getLikedTracks() {
     return response.data?.items;
   } catch (err) {
     throw new Error("Error in getting the Liked Songs");
+  }
+}
+
+// function to get the followed artists
+export async function getFollowedArtists() {
+  try {
+    let response = await axiosRequest("GET", GET_FOLLOWED_ARTIST, null, null, {
+      limit: 10,
+    });
+
+    if (!response?.data) {
+      throw new Error("Unexpected response format");
+    }
+    return response.data?.items;
+  } catch (err) {
+    throw new Error("Error in getting the user's followed artists");
+  }
+}
+
+// function to get the user's playlist
+export async function getUsersPlaylist() {
+  try {
+    let response = await axiosRequest("GET", GET_USERS_PLAYLISTS, null, null, {
+      limit: 10,
+    });
+
+    if (!response?.data) {
+      throw new Error("Unexpected response format");
+    }
+    return response.data?.items;
+  } catch (err) {
+    throw new Error("Error in getting the user's playlist");
   }
 }

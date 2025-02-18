@@ -1,31 +1,17 @@
 import { View, Text, Alert, ScrollView, Image, Pressable } from "react-native";
-import React, { useEffect, useState } from "react";
-import { getCurrentUser } from "../services/operations/user";
+import React, { useContext, useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import NewReleases from "../components/Home/NewReleases";
 import RecentlyPlayed from "../components/Home/RecentlyPlayed";
 import TopArtists from "../components/Home/TopArtists";
+import { UserContext } from "../context/UserContext";
 
 const HomeScreen = () => {
-  const [userProfile, setUserProfile] = useState();
   const navigation = useNavigation();
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const result = await getCurrentUser();
-
-        if (result) {
-          setUserProfile(result);
-        }
-      } catch (err) {
-        Alert.alert("Error", err.message);
-      }
-    };
-    fetchCurrentUser();
-  }, []);
   return (
     <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
       <ScrollView className="mt-10">
@@ -52,8 +38,8 @@ const HomeScreen = () => {
                 }}
                 source={{
                   uri:
-                    userProfile?.images.length > 0
-                      ? userProfile?.images[0].url
+                    user?.images.length > 0
+                      ? user?.images[0].url
                       : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQABqQIdskCD9BK0I81EbVfV9tTz320XvJ35A&s",
                 }}
               />

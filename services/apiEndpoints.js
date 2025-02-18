@@ -4,6 +4,8 @@ export const USER_ENDPOINTS = {
   GET_TOP_ITEMS: "/me/top",
   GET_RECENTLY_PLAYED: "/me/player/recently-played",
   GET_LIKED_TRACKS: "/me/tracks",
+  GET_FOLLOWED_ARTIST: "/me/following",
+  GET_USERS_PLAYLISTS: "/me/playlists",
 };
 
 // ALBUM ENDPOINTS
