@@ -2,8 +2,6 @@ import { Text, Pressable } from "react-native";
 import React from "react";
 
 const CustomButton = ({ isActive, handlePress, category }) => {
-  console.log("Printing tjnjnj==>>", isActive);
-
   return (
     <Pressable
       onPress={() => handlePress(category)}

@@ -82,13 +82,14 @@ export async function getLikedTracks() {
 export async function getFollowedArtists() {
   try {
     let response = await axiosRequest("GET", GET_FOLLOWED_ARTIST, null, null, {
+      type: "artist",
       limit: 10,
     });
 
     if (!response?.data) {
       throw new Error("Unexpected response format");
     }
-    return response.data?.items;
+    return response.data;
   } catch (err) {
     throw new Error("Error in getting the user's followed artists");
   }
