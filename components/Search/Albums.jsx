@@ -1,8 +1,10 @@
-import { View, Text, TouchableOpacity, FlatList, Image } from "react-native";
-import React, { useState } from "react";
+import { View, Text, FlatList, Image, Pressable } from "react-native";
+import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 const Albums = ({ albums }) => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView>
       <FlatList
@@ -10,7 +12,14 @@ const Albums = ({ albums }) => {
         data={albums}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2">
+          <Pressable
+            onPress={() => {
+              navigation.navigate("AlbumPage", {
+                item: item,
+              });
+            }}
+            className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
+          >
             <Image
               className="w-[55px] h-[55px] rounded-md"
               source={{
@@ -35,7 +44,7 @@ const Albums = ({ albums }) => {
                     : item?.artists[0]?.name.slice(0, 30) + "...")}
               </Text>
             </View>
-          </View>
+          </Pressable>
         )}
         contentContainerStyle={{ paddingBottom: 800 }} // Prevent last item from getting cut off
         ListEmptyComponent={

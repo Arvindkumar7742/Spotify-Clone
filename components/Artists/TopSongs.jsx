@@ -1,10 +1,12 @@
-import { Alert, FlatList, Image, Text, View } from "react-native";
+import { Alert, FlatList, Image, Pressable, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getArtistTopSongs } from "../../services/operations/artist";
 import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const TopSongs = ({ artistId }) => {
   const [topSongs, setTopSongs] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchArtistsTopSongs = async () => {
@@ -28,7 +30,14 @@ const TopSongs = ({ artistId }) => {
         data={topSongs}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item, index }) => (
-          <View className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2">
+          <Pressable
+            onPress={() => {
+              navigation.navigate("SongInfo", {
+                item: item,
+              });
+            }}
+            className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
+          >
             <View>
               <Text className="text-white text-md font-bold mr-2">
                 {index + 1}
@@ -58,7 +67,7 @@ const TopSongs = ({ artistId }) => {
               </View>
               <Entypo name="dots-three-vertical" size={22} color="white" />
             </View>
-          </View>
+          </Pressable>
         )}
         contentContainerStyle={{ paddingBottom: 800 }} // Prevent last item from getting cut off
         ListEmptyComponent={

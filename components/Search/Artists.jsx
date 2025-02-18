@@ -1,15 +1,24 @@
-import { View, Text, FlatList, Image } from "react-native";
+import { View, Text, FlatList, Image, Pressable } from "react-native";
 import React from "react";
 import user from "../../assets/user.png";
+import { useNavigation } from "@react-navigation/native";
 
 const Artists = ({ artists }) => {
+  const navigation = useNavigation();
   return (
     <FlatList
       className="mt-5"
       data={artists}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
-        <View className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2">
+        <Pressable
+          onPress={() => {
+            navigation.navigate("ArtistScreen", {
+              item: item,
+            });
+          }}
+          className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
+        >
           <Image
             className="w-[55px] h-[55px] rounded-full"
             source={
@@ -27,7 +36,7 @@ const Artists = ({ artists }) => {
                 : item?.name.slice(0, 30) + "..."}
             </Text>
           </View>
-        </View>
+        </Pressable>
       )}
       contentContainerStyle={{ paddingBottom: 250 }} // Prevent last item from getting cut off
       ListEmptyComponent={

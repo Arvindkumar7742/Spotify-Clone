@@ -1,13 +1,18 @@
 import { Text, View, Pressable, Image } from "react-native";
 import React, { useContext } from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const SongItem = ({ item, onPress, isPlaying = false }) => {
-  const handlePress = () => {};
+const SongItem = ({ item, isPlaying = false }) => {
+  const navigation = useNavigation();
 
   return (
     <Pressable
-      onPress={handlePress}
+      onPress={() => {
+        navigation.navigate("SongInfo", {
+          item: item,
+        });
+      }}
       className={`flex-row items-center p-3 gap-2`}
     >
       <Image
@@ -23,12 +28,7 @@ const SongItem = ({ item, onPress, isPlaying = false }) => {
           marginLeft: "20px",
         }}
       >
-        <Text
-          numberOfLines={1}
-          className={`font-bold text-sm pl-5 ${
-            isPlaying ? "text-green-400" : "text-white"
-          }`}
-        >
+        <Text numberOfLines={1} className={`font-bold text-sm pl-5 text-white`}>
           {item?.track?.name}
         </Text>
         <Text className="mt-1 text-white font-light text-sm">

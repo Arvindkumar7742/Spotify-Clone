@@ -1,15 +1,24 @@
-import { View, Text, FlatList, Image } from "react-native";
+import { View, Text, FlatList, Image, Pressable } from "react-native";
 import React from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useNavigation } from "expo-router";
 
 const Playlists = ({ playlists }) => {
+  const navigation = useNavigation();
   return (
     <FlatList
       className="mt-5"
       data={playlists.filter((playlist) => playlist)}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
-        <View className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2">
+        <Pressable
+          onPress={() => {
+            navigation.navigate("PlaylistPage", {
+              item: item,
+            });
+          }}
+          className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
+        >
           <Image
             className="w-[55px] h-[55px] rounded-md"
             source={{
@@ -44,7 +53,7 @@ const Playlists = ({ playlists }) => {
               color="white"
             />
           </View>
-        </View>
+        </Pressable>
       )}
       contentContainerStyle={{ paddingBottom: 250 }} // Prevent last item from getting cut off
       ListEmptyComponent={

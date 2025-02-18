@@ -17,6 +17,8 @@ import LibraryScreen from "./screens/LibraryScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ArtistScreen from "./screens/ArtistScreen";
 import SongInfo from "./screens/SongInfo";
+import AlbumScreen from "./screens/AlbumScreen";
+import PlaylistScreen from "./screens/PlaylistScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -131,8 +133,18 @@ function Navigation() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Info"
+            name="SongInfo"
             component={SongInfo}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AlbumPage"
+            component={AlbumScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PlaylistPage"
+            component={PlaylistScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

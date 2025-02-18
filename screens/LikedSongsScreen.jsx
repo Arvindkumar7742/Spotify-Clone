@@ -100,23 +100,6 @@ const LikedSongsScreen = () => {
             </Text>
           </View>
 
-          <Pressable className="flex-row items-center justify-between mx-[10px]">
-            {/* Arrow Down Button */}
-            <Pressable className="w-[30px] h-[30px] rounded-[15px] bg-[#1DB954] justify-center items-center">
-              <AntDesign name="arrowdown" size={20} color="white" />
-            </Pressable>
-
-            {/* Play Button and Cross Icon */}
-            <View className="flex-row items-center gap-[10px]">
-              <Pressable
-                onPress={playTrack}
-                className="w-[60px] h-[60px] rounded-[30px] justify-center items-center bg-[#1DB954]"
-              >
-                <Entypo name="controller-play" size={24} color="white" />
-              </Pressable>
-            </View>
-          </Pressable>
-
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             {searchedTracks.length === 0 ? (
               <ActivityIndicator size="large" color="gray" />

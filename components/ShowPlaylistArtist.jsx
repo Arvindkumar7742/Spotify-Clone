@@ -15,7 +15,17 @@ const ShowPlaylistArtist = ({ playlists, artists, activeCategory }) => {
         data={combinedList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View className="mb-2 flex-row items-center gap-2 rounded-md shadow-md p-2">
+          <Pressable
+            onPress={() => {
+              navigation.navigate(
+                item.type === "artist" ? "ArtistScreen" : "PlaylistPage",
+                {
+                  item: item,
+                }
+              );
+            }}
+            className="mb-2 flex-row items-center gap-2 rounded-md shadow-md p-2"
+          >
             <Image
               className={`w-[55px] h-[55px] ${
                 item.type === "artist" ? "rounded-full" : "rounded-md"
@@ -32,13 +42,13 @@ const ShowPlaylistArtist = ({ playlists, artists, activeCategory }) => {
                 {item.type[0].toUpperCase() + item.type.slice(1)}
               </Text>
             </View>
-          </View>
+          </Pressable>
         )}
         ListHeaderComponent={
           activeCategory !== "Artists" && (
             <Pressable
               onPress={() => navigation.navigate("Liked")}
-              className="mb-2 w-full flex-row items-center gap-5 pr-20 bg-[#202020] rounded-md shadow-md"
+              className="mb-2 w-full flex-row items-center gap-5 p-2 bg-[#202020] rounded-md shadow-md"
             >
               <LinearGradient
                 colors={["#33006F", "#FFFFFF"]}
