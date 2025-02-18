@@ -15,3 +15,10 @@ export const ALBUM_ENDPOINTS = {
 export const SEARCH_ENDPOINTS = {
   GET_CATEGORIZED_RESULT: "/search",
 };
+
+// ARTIST END POINTS
+export const ARTIST_END_POINTS = {
+  GET_ARTIST_TOP_SONGS: "/artists",
+  GET_ARTIST_ALBUMS: "/artists",
+  GET_ARTIST_RELATED_ARTIST: "/artists",
+};
