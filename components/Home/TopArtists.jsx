@@ -1,7 +1,7 @@
 import { Text, Alert, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getUsersTopItems } from "../../services/operations/user";
-import ArtistCard from "./ArtistCard";
+import HorizontalCards from "../Common/HorizontalCards";
 
 const TopArtists = () => {
   const [topArtists, setTopArtists] = useState([]);
@@ -37,7 +37,13 @@ const TopArtists = () => {
       </Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {topArtists.map((item, index) => (
-          <ArtistCard item={item} key={index} />
+          <HorizontalCards
+            imageSrc={item?.images[0]?.url}
+            path="ArtistScreen"
+            name={item.name}
+            key={index}
+            item={item}
+          />
         ))}
       </ScrollView>
     </>

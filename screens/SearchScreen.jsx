@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import TopTracks from "../components/TopTracks";
 import { getCategorizedResult } from "../services/operations/search";
-import ShowSearchResults from "../components/search/ShowSearchResults";
+import ShowSearchResults from "../components/Search/ShowSearchResults";
 
 const SearchScreen = () => {
   const [searchText, setSearchText] = useState("");
@@ -34,14 +34,16 @@ const SearchScreen = () => {
   };
 
   const handleSearch = async () => {
-    try {
-      const result = await getCategorizedResult(searchText);
+    if (searchText.trim()) {
+      try {
+        const result = await getCategorizedResult(searchText);
 
-      if (result) {
-        setSearchResults(result);
+        if (result) {
+          setSearchResults(result);
+        }
+      } catch (err) {
+        Alert.alert("Error", err.message);
       }
-    } catch (err) {
-      Alert.alert("Error", err.message);
     }
   };
 

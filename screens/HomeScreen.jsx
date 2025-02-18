@@ -4,9 +4,9 @@ import { getCurrentUser } from "../services/operations/user";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import TopArtists from "../components/artist/TopArtists";
-import RecentlyPlayed from "../components/recently_played/RecentlyPlayed";
-import NewReleases from "../components/album/NewReleases";
+import NewReleases from "../components/Home/NewReleases";
+import RecentlyPlayed from "../components/Home/RecentlyPlayed";
+import TopArtists from "../components/Home/TopArtists";
 
 const HomeScreen = () => {
   const [userProfile, setUserProfile] = useState();

@@ -1,7 +1,7 @@
 import { View, Text, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
-import ReleaseCard from "./ReleaseCard";
 import { getNewReleases } from "../../services/operations/album";
+import HorizontalCards from "../Common/HorizontalCards";
 
 const NewReleases = () => {
   const [newReleases, setNewReleases] = useState([]);
@@ -29,7 +29,13 @@ const NewReleases = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <ReleaseCard item={item} key={index} />
+          <HorizontalCards
+            imageSrc={item.images[0].url}
+            item={item}
+            name={item.name}
+            key={index}
+            path="AlbumPage"
+          />
         )}
       />
     </>

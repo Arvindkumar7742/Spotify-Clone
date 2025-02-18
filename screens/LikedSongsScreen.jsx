@@ -157,12 +157,12 @@ const LikedSongsScreen = () => {
         modalVisible={modalVisible}
       />
 
-      {modalVisible && (
+      {/* {modalVisible && (
         <PlayerModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
         />
-      )}
+      )} */}
     </>
   );
 };

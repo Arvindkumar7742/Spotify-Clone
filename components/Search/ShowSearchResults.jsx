@@ -8,9 +8,6 @@ import Artists from "./Artists";
 const ShowSearchResults = ({ searchResults }) => {
   const [selected, setSelected] = useState("Tracks");
   const filters = ["Tracks", "Artists", "Albums", "Playlists"];
-
-  console.log("Printing the seragcyudbsbdbjsbdjhbs===>>>", searchResults);
-
   return (
     <>
       {Object.entries(searchResults).length > 0 && (

@@ -1,7 +1,7 @@
 import { View, Text, FlatList, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
-import RecentlyPlayedCard from "./RecentlyPlayedCard";
 import { getRecentlyPlayed } from "../../services/operations/user";
+import HorizontalCards from "../Common/HorizontalCards";
 
 const RecentlyPlayed = () => {
   const [recentlyPlayed, setRecentlyPlayed] = useState([]);
@@ -33,7 +33,13 @@ const RecentlyPlayed = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <RecentlyPlayedCard item={item} key={index} />
+          <HorizontalCards
+            imageSrc={item.track.album.images[0].url}
+            item={item.track}
+            name={item.track.name}
+            key={index}
+            path="SongInfo"
+          />
         )}
         contentContainerStyle={{ paddingBottom: 60 }}
       />
