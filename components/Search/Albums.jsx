@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const Albums = ({ albums }) => {
   return (
     <FlatList
-      className="mt-5"
+      className="mt-5 pb-[100px]"
       data={albums}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
@@ -35,7 +35,7 @@ const Albums = ({ albums }) => {
           </View>
         </View>
       )}
-      contentContainerStyle={{ paddingBottom: 250 }} // Prevent last item from getting cut off
+      contentContainerStyle={{ paddingBottom: 700 }} // Prevent last item from getting cut off
       ListEmptyComponent={
         <View className="flex items-center justify-center h-40">
           <Text className="text-white text-lg font-semibold">

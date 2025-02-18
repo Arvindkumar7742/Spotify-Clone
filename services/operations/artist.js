@@ -51,27 +51,3 @@ export async function getArtistAlbums(artistId) {
     throw new Error("Error in fetching Artist albums.");
   }
 }
-
-// function to get artist related artists
-export async function getArtistRelatedArtist(artistId) {
-  try {
-    const response = await axiosRequest(
-      "GET",
-      GET_ARTIST_ALBUMS + `/${artistId}/related-artists`,
-      null,
-      null,
-      {
-        limit: 10,
-        offset: 0,
-      }
-    );
-
-    if (!response?.data) {
-      throw new Error("Unexpected response format");
-    }
-
-    return response.data;
-  } catch (err) {
-    throw new Error("Error in fetching Artist's related artist.");
-  }
-}
