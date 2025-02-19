@@ -12,32 +12,28 @@ const ArtistScreen = () => {
   const { item } = route.params;
 
   return (
-    <SafeAreaView>
-      <View className="relative">
-        <Image
-          height={280}
-          width="full"
-          className="rounded-sm"
-          resizeMode="cover"
-          source={{ uri: item.images[0].url }}
-        />
-        <TouchableOpacity className="absolute top-3 left-3 bg-black/50 w-[40px] h-[40px] justify-center items-center rounded-full">
-          <Ionicons
-            name="arrow-back-outline"
-            size={24}
-            color="white"
-            onPress={() => navigation.goBack()}
+    <LinearGradient colors={["#040306", "#131624"]} style={{ height: "100%" }}>
+      <SafeAreaView>
+        <View className="relative">
+          <Image
+            height={280}
+            width="full"
+            className="rounded-sm"
+            resizeMode="cover"
+            source={{ uri: item.images[0].url }}
           />
-        </TouchableOpacity>
-        <Text className="text-5xl font-bold absolute bottom-0 w-full text-white text-center">
-          {item.name}
-        </Text>
-      </View>
-
-      <LinearGradient
-        colors={["#040306", "#131624"]}
-        style={{ height: "100%" }}
-      >
+          <TouchableOpacity className="absolute top-3 left-3 bg-black/50 w-[40px] h-[40px] justify-center items-center rounded-full">
+            <Ionicons
+              name="arrow-back-outline"
+              size={24}
+              color="white"
+              onPress={() => navigation.goBack()}
+            />
+          </TouchableOpacity>
+          <Text className="text-5xl font-bold absolute bottom-0 w-full text-white text-center">
+            {item.name}
+          </Text>
+        </View>
         <View className="items-center flex-row justify-start p-2">
           <Text className="text-white text-xl font-bold">
             {item?.followers?.total?.toLocaleString()}
@@ -58,8 +54,8 @@ const ArtistScreen = () => {
         </View>
 
         <ShowArtistInfo artistId={item.id} />
-      </LinearGradient>
-    </SafeAreaView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 

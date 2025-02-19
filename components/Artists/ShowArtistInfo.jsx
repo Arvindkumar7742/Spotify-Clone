@@ -8,7 +8,7 @@ const ShowArtistInfo = ({ artistId }) => {
   const filters = ["Top songs", "Albums"];
 
   return (
-    <View className="pb-20">
+    <View>
       <View className="flex-row w-full gap-6 p-3">
         {filters.map((filter) => {
           return (

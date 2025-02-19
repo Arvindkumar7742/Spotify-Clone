@@ -19,6 +19,7 @@ import ArtistScreen from "./screens/ArtistScreen";
 import SongInfo from "./screens/SongInfo";
 import AlbumScreen from "./screens/AlbumScreen";
 import PlaylistScreen from "./screens/PlaylistScreen";
+import { StatusBar } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -104,52 +105,55 @@ const Stack = createNativeStackNavigator();
 // function to create the Navigation to be used in home
 function Navigation() {
   return (
-    <NavigationIndependentTree>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Main"
-            component={BottomTabs}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Liked"
-            component={LikedSongsScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={ProfileScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ArtistScreen"
-            component={ArtistScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SongInfo"
-            component={SongInfo}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="AlbumPage"
-            component={AlbumScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="PlaylistPage"
-            component={PlaylistScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </NavigationIndependentTree>
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="black" />
+      <NavigationIndependentTree>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Main"
+              component={BottomTabs}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Liked"
+              component={LikedSongsScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ArtistScreen"
+              component={ArtistScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SongInfo"
+              component={SongInfo}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AlbumPage"
+              component={AlbumScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PlaylistPage"
+              component={PlaylistScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </NavigationIndependentTree>
+    </>
   );
 }
 
