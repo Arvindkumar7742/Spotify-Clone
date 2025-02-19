@@ -7,8 +7,10 @@ const CustomButton = ({ isActive, handlePress, category }) => {
       onPress={() => handlePress(category)}
       style={{
         backgroundColor: isActive ? "#40ff00" : "#282828",
+        paddingTop: 5,
+        paddingBottom: 5,
       }}
-      className={`transition-all duration-300 rounded-full px-4 py-2`}
+      className={`transition-all duration-300 rounded-full px-4 py-4`}
     >
       <Text className={isActive ? "text-black" : "text-white"}>{category}</Text>
     </Pressable>

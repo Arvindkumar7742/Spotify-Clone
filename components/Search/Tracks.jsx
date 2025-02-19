@@ -1,9 +1,9 @@
 import { View, Text, FlatList, Image, Pressable } from "react-native";
 import React from "react";
-import { useNavigationBuilder } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const Tracks = ({ tracks }) => {
-  const navigation = useNavigationBuilder();
+  const navigation = useNavigation();
   return (
     <FlatList
       className="mt-5"

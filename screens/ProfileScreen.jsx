@@ -4,7 +4,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { getCurrentUser } from "../services/operations/user";
 import { UserContext } from "../context/UserContext";
 
 const ProfileScreen = () => {
