@@ -33,7 +33,12 @@ const ShowPlaylistArtist = ({ playlists, artists, activeCategory }) => {
               source={{ uri: item.images[0]?.url }}
             />
             <View>
-              <Text className="text-white text-[22px] pl-2 font-bold w-[106px]">
+              <Text
+                style={{
+                  width: "106px",
+                }}
+                className="text-white text-[22px] pl-2 font-bold"
+              >
                 {item?.name.length < 30
                   ? item?.name
                   : item?.name.slice(0, 30) + "..."}

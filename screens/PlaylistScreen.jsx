@@ -1,12 +1,15 @@
-import { Alert, Image, Text, View } from "react-native";
+import { Alert, FlatList, Image, Pressable, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { getPlaylistSongs } from "../services/operations/playlist";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Entypo } from "@expo/vector-icons";
+import { reduceUniqueSongs } from "../utils/getUniqueSongs";
 
 const PlaylistScreen = () => {
+  const navigation = useNavigation();
   const route = useRoute();
   const { item } = route.params;
   const [playlistTracks, setPlayListsTracks] = useState([]);
@@ -14,10 +17,10 @@ const PlaylistScreen = () => {
   useEffect(() => {
     const fetchPlaylistTracks = async () => {
       try {
-        const result = await getPlaylistSongs(item.id);
+        const result = await getPlaylistSongs(item.id, item.tracks.total);
 
         if (result) {
-          setPlayListsTracks(result.items);
+          setPlayListsTracks(reduceUniqueSongs(result.items));
         }
       } catch (err) {
         Alert.alert("Error", err.message);
@@ -25,7 +28,7 @@ const PlaylistScreen = () => {
     };
 
     fetchPlaylistTracks();
-  });
+  }, []);
 
   return (
     <LinearGradient colors={["#040306", "#131624"]} style={{ height: "100%" }}>
@@ -60,48 +63,58 @@ const PlaylistScreen = () => {
           <FlatList
             className="mt-5"
             data={playlistTracks}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item?.track?.id}
             renderItem={({ item, index }) => (
               <Pressable
                 onPress={() => {
-                  navigation.navigate("SongInfo", {
-                    item: item,
-                  });
+                  navigation.navigate("SongInfo", { item: item });
                 }}
-                className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
+                className="mb-2 flex-row items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
+                style={{ width: "100%" }}
               >
-                <View>
-                  <Text className="text-white text-md font-bold mr-2">
-                    {index + 1}
-                  </Text>
-                </View>
+                {/* Index */}
+                <Text className="text-white text-md font-bold mr-2">
+                  {index + 1}
+                </Text>
+
+                {/* Image */}
                 <Image
                   className="w-[55px] h-[55px] rounded-md"
-                  source={{ uri: item.album.images[0]?.url }}
-                />
-                <View
-                  style={{
-                    width: "75%",
+                  source={{
+                    uri: item?.track?.album?.images[0]?.url
+                      ? item?.track?.album?.images[0]?.url
+                      : "https://static.vecteezy.com/system/resources/previews/002/249/673/non_2x/music-note-icon-song-melody-tune-flat-symbol-free-vector.jpg",
                   }}
-                  className="flex-row justify-between"
-                >
-                  <View>
-                    <Text className="text-white text-[20px] font-bold w-[106px]">
-                      {item?.name.length < 25
-                        ? item?.name
-                        : item?.name.slice(0, 25) + "..."}
+                />
+
+                {/* Text + Icon Wrapper */}
+                <View className="flex-row justify-between items-center flex-1">
+                  {/* Song Info */}
+                  <View className="flex-1">
+                    <Text
+                      className="text-white text-xl font-bold"
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                    >
+                      {item?.track.name || "Unknown Melody"}
                     </Text>
-                    <Text className="text-white text-xs font-semibold w-[106px]">
-                      {item.album.artists[0]?.name.length < 25
-                        ? item.album.artists[0]?.name
-                        : item.album.artists[0]?.name.slice(0, 25) + "..."}
+                    <Text
+                      className="text-gray-400 text-xs"
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                    >
+                      {item.track.artists
+                        .map((artist) => artist.name)
+                        .join(", ") || "Unknown Artist"}
                     </Text>
                   </View>
+
+                  {/* Three Dots Icon */}
                   <Entypo name="dots-three-vertical" size={22} color="white" />
                 </View>
               </Pressable>
             )}
-            contentContainerStyle={{ paddingBottom: 950 }} // Prevent last item from getting cut off
+            contentContainerStyle={{ paddingBottom: 950 }}
             ListEmptyComponent={
               <View className="flex items-center justify-center h-40">
                 <Text className="text-white text-lg font-semibold">

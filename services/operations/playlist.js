@@ -4,7 +4,7 @@ import { PLAYLIST_END_POINTS } from "../apiEndpoints";
 const { GET_PLAYLIST_TRACKS } = PLAYLIST_END_POINTS;
 
 //function to get new artist's top songs
-export async function getPlaylistSongs(playlistId) {
+export async function getPlaylistSongs(playlistId, limit) {
   try {
     const response = await axiosRequest(
       "GET",
@@ -12,7 +12,7 @@ export async function getPlaylistSongs(playlistId) {
       null,
       null,
       {
-        limit: 50,
+        limit: limit,
         offset: 0,
       }
     );
