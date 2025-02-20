@@ -55,7 +55,7 @@ const AlbumScreen = () => {
                 ? item.artists
                     .slice(0, 2)
                     .map((artist) => artist.name)
-                    .join(", ") + `and ${item.artist.length - 2} others`
+                    .join(", ") + ` and ${item.artists.length - 2} others`
                 : item.artists.map((artist) => artist.name).join(", ")}
             </Text>
           </View>
