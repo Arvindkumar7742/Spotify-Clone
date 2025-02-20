@@ -78,7 +78,11 @@ const SongInfo = () => {
 
         <View className="flex flex-row justify-between mt-10">
           <View className="mt-6">
-            <Text className="text-white text-xl font-bold">{item?.name}</Text>
+            <Text className="text-white text-xl font-bold">
+              {item?.name.length > 20
+                ? item?.name.slice(0, 20) + "..."
+                : item?.name}
+            </Text>
             <View className="flex flex-row items-center gap-1">
               <Ionicons
                 name="sparkles-sharp"
@@ -97,7 +101,9 @@ const SongInfo = () => {
             <View className="flex flex-row items-center gap-1 mt-2">
               <MaterialCommunityIcons name="album" size={20} color="#1dd661" />
               <Text className="text-gray-400 text-sm ">
-                {item?.album?.name}
+                {item?.album?.name.length > 25
+                  ? item?.album?.name.slice(0, 25) + "..."
+                  : item?.album?.name}
               </Text>
             </View>
           </View>
