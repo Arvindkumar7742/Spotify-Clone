@@ -24,3 +24,8 @@ export const ARTIST_END_POINTS = {
   GET_ARTIST_ALBUMS: "/artists",
   GET_ARTIST_RELATED_ARTIST: "/artists",
 };
+
+// PLAYLIST END POINTS
+export const PLAYLIST_END_POINTS = {
+  GET_PLAYLIST_TRACKS: "/playlists",
+};

@@ -16,6 +16,9 @@ const Tracks = ({ tracks }) => {
               item: item,
             });
           }}
+          style={{
+            width: "100%",
+          }}
           className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 bg-[#202020] rounded-md shadow-md p-2"
         >
           <Image
@@ -23,7 +26,12 @@ const Tracks = ({ tracks }) => {
             source={{ uri: item.album.images[0]?.url }}
           />
           <View>
-            <Text className="text-white text-[20px] font-bold w-[106px]">
+            <Text
+              style={{
+                width: "106px",
+              }}
+              className="text-white text-[16px] font-bold"
+            >
               {item?.name.length < 25
                 ? item?.name
                 : item?.name.slice(0, 25) + "..."}

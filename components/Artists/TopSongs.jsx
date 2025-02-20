@@ -36,6 +36,9 @@ const TopSongs = ({ artistId }) => {
                 item: item,
               });
             }}
+            style={{
+              width: "100%",
+            }}
             className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
           >
             <View>
@@ -49,12 +52,17 @@ const TopSongs = ({ artistId }) => {
             />
             <View
               style={{
-                width: "75%",
+                width: "73%",
               }}
               className="flex-row justify-between"
             >
               <View>
-                <Text className="text-white text-[20px] font-bold w-[106px]">
+                <Text
+                  className="text-white text-[18px] font-bold w-[106px]"
+                  style={{
+                    width: "106px",
+                  }}
+                >
                   {item?.name.length < 25
                     ? item?.name
                     : item?.name.slice(0, 25) + "..."}
@@ -69,7 +77,7 @@ const TopSongs = ({ artistId }) => {
             </View>
           </Pressable>
         )}
-        contentContainerStyle={{ paddingBottom: 800 }} // Prevent last item from getting cut off
+        contentContainerStyle={{ paddingBottom: 950 }} // Prevent last item from getting cut off
         ListEmptyComponent={
           <View className="flex items-center justify-center h-40">
             <Text className="text-white text-lg font-semibold">

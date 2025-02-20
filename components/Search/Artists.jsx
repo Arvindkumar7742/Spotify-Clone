@@ -17,7 +17,10 @@ const Artists = ({ artists }) => {
               item: item,
             });
           }}
-          className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
+          style={{
+            width: "100%",
+          }}
+          className="mb-2 flex-row items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
         >
           <Image
             className="w-[55px] h-[55px] rounded-full"
@@ -30,7 +33,12 @@ const Artists = ({ artists }) => {
             }
           />
           <View>
-            <Text className="text-white text-[22px] pl-2 font-bold w-[106px]">
+            <Text
+              style={{
+                width: "106px",
+              }}
+              className="text-white text-[22px] pl-2 font-bold "
+            >
               {item?.name.length < 30
                 ? item?.name
                 : item?.name.slice(0, 30) + "..."}
