@@ -11,6 +11,7 @@ export const USER_ENDPOINTS = {
 // ALBUM ENDPOINTS
 export const ALBUM_ENDPOINTS = {
   GET_NEW_RELEASES: "/browse/new-releases",
+  GET_ALBUM_TRACKS: "/albums",
 };
 
 //  SEARCH END POINTS

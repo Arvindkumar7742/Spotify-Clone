@@ -1,10 +1,11 @@
-export function reduceUniqueSongs(songs) {
+export function reduceUniqueSongs(songs, flag) {
   const uniqueIds = [];
   const uniqueSongs = [];
 
   for (const song of songs) {
-    if (!uniqueIds.includes(song.track.id)) {
-      uniqueIds.push(song.track.id);
+    const id = flag === "album" ? song.id : song.track.id;
+    if (id && !uniqueIds.includes(id)) {
+      uniqueIds.push(id);
       uniqueSongs.push(song);
     }
   }

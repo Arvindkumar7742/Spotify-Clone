@@ -21,6 +21,7 @@ const PlaylistScreen = () => {
 
         if (result) {
           setPlayListsTracks(reduceUniqueSongs(result.items));
+          console.log("skdn=>", result);
         }
       } catch (err) {
         Alert.alert("Error", err.message);
