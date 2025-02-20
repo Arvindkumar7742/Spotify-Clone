@@ -6,22 +6,23 @@ const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const result = await getCurrentUser();
+  const fetchCurrentUser = async () => {
+    try {
+      const result = await getCurrentUser();
 
-        if (result) {
-          setUser(result);
-        }
-      } catch (err) {
-        Alert.alert("Error", err.message);
+      if (result) {
+        setUser(result);
       }
-    };
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    }
+  };
+
+  useEffect(() => {
     fetchCurrentUser();
   }, []);
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, fetchCurrentUser }}>
       {children}
     </UserContext.Provider>
   );

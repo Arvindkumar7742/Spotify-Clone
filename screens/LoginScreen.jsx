@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   SafeAreaView,
@@ -12,10 +12,15 @@ import { useAuthRequest } from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { authConfig } from "../config";
+import { UserContext } from "../context/UserContext";
+import { LikedSongsContext } from "../context/LikedSongsContext";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const { fetchCurrentUser } = useContext(UserContext);
+  const { fetchLikedSongs } = useContext(LikedSongsContext);
+
   const [request, response, promptAsync] = useAuthRequest(
     {
       ...authConfig.config,
@@ -79,6 +84,10 @@ const LoginScreen = () => {
           );
 
           console.log("Token and expiration date saved!");
+
+          // saving the user profile and liked songs using context
+          fetchLikedSongs();
+          fetchCurrentUser();
           navigation.navigate("Main");
         }
       } else if (response?.type === "error") {

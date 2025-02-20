@@ -4,26 +4,22 @@ import {
   ScrollView,
   Pressable,
   TextInput,
-  Alert,
   ActivityIndicator,
   FlatList,
-  Linking,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { getLikedTracks } from "../services/operations/user";
 import SongItem from "../components/SongItem";
+import { LikedSongsContext } from "../context/LikedSongsContext";
 
 const LikedSongsScreen = () => {
   const [input, setInput] = useState("");
-  const [likedTracks, savedLikedTracks] = useState([]);
   const navigation = useNavigation();
-  const [searchedTracks, setSearchedTracks] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
+  const { likedTracks } = useContext(LikedSongsContext);
+  const [searchedTracks, setSearchedTracks] = useState(likedTracks);
 
   function handleSearch(text) {
     const filteredTracks = likedTracks.filter((item) =>
@@ -37,23 +33,6 @@ const LikedSongsScreen = () => {
   };
 
   function playTrack() {}
-
-  useEffect(() => {
-    const fetchLikedTracks = async () => {
-      try {
-        const result = await getLikedTracks();
-
-        if (result) {
-          savedLikedTracks(result);
-          setSearchedTracks(result);
-        }
-      } catch (err) {
-        Alert.alert("Error", err.message);
-      }
-    };
-
-    fetchLikedTracks();
-  }, []);
 
   return (
     <>
