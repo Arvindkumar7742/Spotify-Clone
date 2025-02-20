@@ -4,14 +4,14 @@ import { getLikedTracks } from "../services/operations/user";
 const LikedSongsContext = createContext();
 
 const LikedSongsContextProvider = ({ children }) => {
-  const [likedTracks, savedLikedTracks] = useState([]);
+  const [likedTracks, setLikedTracks] = useState([]);
 
   const fetchLikedSongs = async () => {
     try {
       const result = await getLikedTracks();
 
       if (result) {
-        savedLikedTracks(result);
+        setLikedTracks(result);
       }
     } catch (err) {
       Alert.alert("Error", err.message);
@@ -23,7 +23,7 @@ const LikedSongsContextProvider = ({ children }) => {
   }, []);
   return (
     <LikedSongsContext.Provider
-      value={{ likedTracks, savedLikedTracks, fetchLikedSongs }}
+      value={{ likedTracks, setLikedTracks, fetchLikedSongs }}
     >
       {children}
     </LikedSongsContext.Provider>

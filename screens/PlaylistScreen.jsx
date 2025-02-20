@@ -68,7 +68,7 @@ const PlaylistScreen = () => {
             renderItem={({ item, index }) => (
               <Pressable
                 onPress={() => {
-                  navigation.navigate("SongInfo", { item: item });
+                  navigation.navigate("SongInfo", { item: item.track });
                 }}
                 className="mb-2 flex-row items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
                 style={{ width: "100%" }}

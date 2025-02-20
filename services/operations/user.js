@@ -9,6 +9,7 @@ const {
   GET_FOLLOWED_ARTIST,
   GET_USERS_PLAYLISTS,
   SAVE_TRACKS_FOR_USER,
+  REMOVE_TRACKS_FOR_USER,
 } = USER_ENDPOINTS;
 
 // function to get current users's profile
@@ -112,18 +113,38 @@ export async function getUsersPlaylist() {
   }
 }
 
-// function to save a track in user's saved tracks
+// function to save / like a track in user's saved tracks
 export async function saveTrackForCurrentUser(trackId) {
   try {
-    let response = await axiosRequest("GET", SAVE_TRACKS_FOR_USER, null, null, {
+    let response = await axiosRequest("PUT", SAVE_TRACKS_FOR_USER, null, null, {
       ids: trackId,
     });
 
-    if (!response?.data) {
-      throw new Error("Unexpected response format");
+    if (response.status === 200) {
+      return true;
     }
-    return response.data?.items;
   } catch (err) {
     throw new Error("Error in saving the track in current user");
+  }
+}
+
+// function to unsave / dislike a track in user's saved tracks
+export async function removeTrackFromCurrentUser(trackId) {
+  try {
+    let response = await axiosRequest(
+      "DELETE",
+      REMOVE_TRACKS_FOR_USER,
+      null,
+      null,
+      {
+        ids: trackId,
+      }
+    );
+
+    if (response.status === 200) {
+      return true;
+    }
+  } catch (err) {
+    throw new Error("Error in removing the track from current user");
   }
 }

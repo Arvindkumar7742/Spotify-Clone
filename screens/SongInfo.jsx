@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Pressable,
+  Alert,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -8,18 +15,44 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { ProgressBar } from "react-native-paper";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { LikedSongsContext } from "../context/LikedSongsContext";
+import {
+  removeTrackFromCurrentUser,
+  saveTrackForCurrentUser,
+} from "../services/operations/user";
 
 const SongInfo = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { item } = route.params;
   const [toggle, setToggle] = useState(true);
+  const { likedTracks, setLikedTracks } = useContext(LikedSongsContext);
+  const [isLiked, setIsLiked] = useState(
+    likedTracks.map((item) => item.track.id).includes(item.id)
+  );
 
-  const handleToggle = () => {
-    setToggle(!toggle);
-    console.log(toggle);
-  };
+  async function handleSongLike() {
+    try {
+      if (isLiked) {
+        const result = await removeTrackFromCurrentUser(item.id);
+        if (result) {
+          setLikedTracks((prev) =>
+            prev.filter((it) => it.track.id !== item.id)
+          );
+          setIsLiked((pev) => !pev);
+        }
+      } else {
+        const result = await saveTrackForCurrentUser(item.id);
+        if (result) {
+          setLikedTracks((prev) => [{ track: item }, ...prev]);
+          setIsLiked((pev) => !pev);
+        }
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    }
+  }
   return (
     <LinearGradient
       colors={["#F3FF33", "black"]}
@@ -33,7 +66,11 @@ const SongInfo = () => {
         </TouchableOpacity>
         <View className="items-center mt-18">
           <Image
-            source={{ uri: item?.album?.images?.[0]?.url }}
+            source={{
+              uri: item?.album?.images?.[0]?.url
+                ? item?.album?.images?.[0]?.url
+                : "https://static.vecteezy.com/system/resources/previews/002/249/673/non_2x/music-note-icon-song-melody-tune-flat-symbol-free-vector.jpg",
+            }}
             className="w-[100%] h-72 rounded-md mt-10"
             resizeMode="cover"
           />
@@ -66,7 +103,13 @@ const SongInfo = () => {
           </View>
           <View className="flex flex-row gap-6 items-center">
             <Ionicons name="add-circle-outline" size={35} color="white" />
-            <AntDesign name="heart" size={24} color="white" />
+            <Pressable onPress={handleSongLike}>
+              <AntDesign
+                name="heart"
+                size={24}
+                color={isLiked ? "#1DB954" : "white"}
+              />
+            </Pressable>
           </View>
         </View>
 
@@ -88,7 +131,7 @@ const SongInfo = () => {
             size={40}
             color="white"
           />
-          <TouchableOpacity onPress={handleToggle}>
+          <TouchableOpacity onPress={() => setToggle(!toggle)}>
             {toggle ? (
               <Ionicons name="play-circle-sharp" size={75} color="white" />
             ) : (

@@ -10,7 +10,7 @@ const SongItem = ({ item, isPlaying = false }) => {
     <Pressable
       onPress={() => {
         navigation.navigate("SongInfo", {
-          item: item,
+          item: item?.track,
         });
       }}
       className={`flex-row items-center p-3 gap-2`}
