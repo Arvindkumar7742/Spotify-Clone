@@ -6,6 +6,7 @@ export const USER_ENDPOINTS = {
   GET_LIKED_TRACKS: "/me/tracks",
   GET_FOLLOWED_ARTIST: "/me/following",
   GET_USERS_PLAYLISTS: "/me/playlists",
+  SAVE_TRACKS_FOR_USER: "/me/tracks",
 };
 
 // ALBUM ENDPOINTS

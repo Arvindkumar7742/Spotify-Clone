@@ -8,6 +8,7 @@ const {
   GET_LIKED_TRACKS,
   GET_FOLLOWED_ARTIST,
   GET_USERS_PLAYLISTS,
+  SAVE_TRACKS_FOR_USER,
 } = USER_ENDPOINTS;
 
 // function to get current users's profile
@@ -108,5 +109,21 @@ export async function getUsersPlaylist() {
     return response.data?.items;
   } catch (err) {
     throw new Error("Error in getting the user's playlist");
+  }
+}
+
+// function to save a track in user's saved tracks
+export async function saveTrackForCurrentUser(trackId) {
+  try {
+    let response = await axiosRequest("GET", SAVE_TRACKS_FOR_USER, null, null, {
+      ids: trackId,
+    });
+
+    if (!response?.data) {
+      throw new Error("Unexpected response format");
+    }
+    return response.data?.items;
+  } catch (err) {
+    throw new Error("Error in saving the track in current user");
   }
 }
