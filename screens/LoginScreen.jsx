@@ -14,12 +14,14 @@ import { useNavigation } from "@react-navigation/native";
 import { authConfig } from "../config";
 import { UserContext } from "../context/UserContext";
 import { LikedSongsContext } from "../context/LikedSongsContext";
+import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const { fetchCurrentUser } = useContext(UserContext);
   const { fetchLikedSongs } = useContext(LikedSongsContext);
+  const { fetchFollowedPlaylists } = useContext(FollowedPlaylistContext);
 
   const [request, response, promptAsync] = useAuthRequest(
     {
@@ -85,9 +87,10 @@ const LoginScreen = () => {
 
           console.log("Token and expiration date saved!");
 
-          // saving the user profile and liked songs using context
+          // saving the user profile and liked songs and followed playlist using context
           fetchLikedSongs();
           fetchCurrentUser();
+          fetchFollowedPlaylists();
           navigation.navigate("Main");
         }
       } else if (response?.type === "error") {

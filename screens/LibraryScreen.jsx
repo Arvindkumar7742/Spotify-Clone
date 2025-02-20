@@ -2,41 +2,29 @@ import { View, Text, ScrollView, Pressable, Image, Alert } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  getFollowedArtists,
-  getUsersPlaylist,
-} from "../services/operations/user";
+import { getFollowedArtists } from "../services/operations/user";
 import CustomButton from "../components/Common/CustomButton";
 import { UserContext } from "../context/UserContext";
 import { useNavigation } from "expo-router";
 import ShowPlaylistArtist from "../components/ShowPlaylistArtist";
+import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 
 const LibraryScreen = () => {
   const navigation = useNavigation();
   const [activeCategory, setActiveCategory] = useState("All");
+  const { followedPlaylists } = useContext(FollowedPlaylistContext);
   const [artists, setArtists] = useState([]);
-  const [playlists, setPlaylists] = useState([]);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const [artistsResult, playlistsResult] = await Promise.allSettled([
-        getFollowedArtists(),
-        getUsersPlaylist(),
-      ]);
+      const [artistsResult] = await Promise.allSettled([getFollowedArtists()]);
 
       // Handle user artists
       if (artistsResult.status === "fulfilled") {
         setArtists(artistsResult.value?.artists.items);
       } else {
         Alert.alert("Error", "Failed to fetch user followed artists");
-      }
-
-      // Handle user playlist
-      if (playlistsResult.status === "fulfilled") {
-        setPlaylists(playlistsResult.value);
-      } else {
-        Alert.alert("Error", "Failed to fetch user followed playlist");
       }
     };
 
@@ -85,7 +73,7 @@ const LibraryScreen = () => {
           <View className="flex p-2 gap-2 flex-col">
             <ShowPlaylistArtist
               artists={artists}
-              playlists={playlists}
+              playlists={followedPlaylists}
               activeCategory={activeCategory}
             />
           </View>

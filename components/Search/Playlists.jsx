@@ -1,10 +1,44 @@
 import { View, Text, FlatList, Image, Pressable } from "react-native";
-import React from "react";
+import React, { useContext, useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useNavigation } from "expo-router";
+import { FollowedPlaylistContext } from "../../context/FollowedPlaylistContext";
+import {
+  followPlaylist,
+  unfollowPlaylist,
+} from "../../services/operations/playlist";
 
 const Playlists = ({ playlists }) => {
   const navigation = useNavigation();
+  const { followedPlaylists, setFollowedPlaylists } = useContext(
+    FollowedPlaylistContext
+  );
+  const [isFollowed, setIsFollowed] = useState(
+    followedPlaylists.map((item) => item.id)
+  );
+
+  async function handleFollowAPlaylist(item) {
+    try {
+      if (!isFollowed.includes(item.id)) {
+        const result = await followPlaylist(item.id);
+        if (result) {
+          setFollowedPlaylists((prev) => [item, ...prev]);
+          setIsFollowed((prev) => [item.id, ...prev]);
+        }
+      } else {
+        const result = await unfollowPlaylist(item.id);
+        if (result) {
+          setFollowedPlaylists((prev) =>
+            prev.filter((it) => it.id !== item.id)
+          );
+          setIsFollowed((prev) => prev.filter((it) => it !== item.id));
+        }
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    }
+  }
+
   return (
     <FlatList
       className="mt-5"
@@ -52,10 +86,16 @@ const Playlists = ({ playlists }) => {
               </Text>
             </View>
             <MaterialIcons
-              className="align-"
-              name="playlist-add"
+              onPress={() => {
+                handleFollowAPlaylist(item);
+              }}
+              name={
+                isFollowed.includes(item.id)
+                  ? "playlist-add-check"
+                  : "playlist-add"
+              }
               size={24}
-              color="white"
+              color={isFollowed.includes(item.id) ? "green" : "white"}
             />
           </View>
         </Pressable>

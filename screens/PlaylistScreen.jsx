@@ -1,19 +1,51 @@
 import { Alert, FlatList, Image, Pressable, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { getPlaylistSongs } from "../services/operations/playlist";
+import {
+  followPlaylist,
+  getPlaylistSongs,
+  unfollowPlaylist,
+} from "../services/operations/playlist";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 import { reduceUniqueSongs } from "../utils/getUniqueSongs";
+import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 
 const PlaylistScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { item } = route.params;
   const [playlistTracks, setPlayListsTracks] = useState([]);
+  const { followedPlaylists, setFollowedPlaylists } = useContext(
+    FollowedPlaylistContext
+  );
+  const [isFollowed, setIsFollowed] = useState(
+    followedPlaylists.map((item) => item.id)
+  );
 
+  async function handleFollowAPlaylist() {
+    try {
+      if (!isFollowed.includes(item.id)) {
+        const result = await followPlaylist(item.id);
+        if (result) {
+          setFollowedPlaylists((prev) => [item, ...prev]);
+          setIsFollowed((prev) => [item.id, ...prev]);
+        }
+      } else {
+        const result = await unfollowPlaylist(item.id);
+        if (result) {
+          setFollowedPlaylists((prev) =>
+            prev.filter((it) => it.id !== item.id)
+          );
+          setIsFollowed((prev) => prev.filter((it) => it !== item.id));
+        }
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    }
+  }
   useEffect(() => {
     const fetchPlaylistTracks = async () => {
       try {
@@ -55,7 +87,18 @@ const PlaylistScreen = () => {
             <Text className="text-white text-md font-semibold">
               {item.tracks.total} Songs
             </Text>
-            <MaterialIcons name="playlist-add-check" size={24} color="green" />
+            <MaterialIcons
+              onPress={() => {
+                handleFollowAPlaylist();
+              }}
+              name={
+                isFollowed.includes(item.id)
+                  ? "playlist-add-check"
+                  : "playlist-add"
+              }
+              size={24}
+              color={isFollowed.includes(item.id) ? "green" : "white"}
+            />
           </View>
         </View>
 

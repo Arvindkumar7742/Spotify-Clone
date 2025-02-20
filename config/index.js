@@ -16,6 +16,8 @@ export const authConfig = {
       "playlist-modify-public",
       "user-follow-read",
       "user-library-modify",
+      "playlist-modify-public",
+      "playlist-modify-private",
     ],
     usePKCE: true,
     redirectUri: makeRedirectUri({
