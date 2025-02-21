@@ -9,12 +9,6 @@ const ShowPlaylistArtist = ({ playlists, artists, activeCategory }) => {
   const navigation = useNavigation();
   let combinedList = getCombinedList(playlists, artists, activeCategory);
 
-  console.log(
-    "Printing the playlist artist::==>>>>>>>>>>>>",
-    playlists,
-    artists
-  );
-
   return (
     <View>
       <FlatList
