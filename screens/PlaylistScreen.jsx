@@ -3,13 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Entypo } from "@expo/vector-icons";
+
 import {
   followPlaylist,
   getPlaylistSongs,
   unfollowPlaylist,
 } from "../services/operations/playlist";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { Entypo } from "@expo/vector-icons";
 import { reduceUniqueSongs } from "../utils/getUniqueSongs";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 
@@ -25,6 +26,7 @@ const PlaylistScreen = () => {
     followedPlaylists.map((item) => item.id)
   );
 
+  // function to follow a playlist
   async function handleFollowAPlaylist() {
     try {
       if (!isFollowed.includes(item.id)) {
@@ -46,7 +48,9 @@ const PlaylistScreen = () => {
       Alert.alert("Error", err.message);
     }
   }
+
   useEffect(() => {
+    // function to fetch the playlist song when render initially
     const fetchPlaylistTracks = async () => {
       try {
         const result = await getPlaylistSongs(item.id, item.tracks.total);

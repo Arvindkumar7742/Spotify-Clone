@@ -1,5 +1,6 @@
 import { View, Text, FlatList, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
+
 import { getNewReleases } from "../../services/operations/album";
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";

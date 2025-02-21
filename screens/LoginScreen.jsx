@@ -11,6 +11,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { useAuthRequest } from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+
 import { authConfig } from "../config";
 import { UserContext } from "../context/UserContext";
 import { LikedSongsContext } from "../context/LikedSongsContext";
@@ -23,6 +24,7 @@ const LoginScreen = () => {
   const { fetchLikedSongs } = useContext(LikedSongsContext);
   const { fetchFollowedPlaylists } = useContext(FollowedPlaylistContext);
 
+  // hook for making the calling or opening the spotify app using expo auth session
   const [request, response, promptAsync] = useAuthRequest(
     {
       ...authConfig.config,
@@ -32,6 +34,7 @@ const LoginScreen = () => {
     }
   );
 
+  // handling login while clicking on the login button
   const handleLogin = async () => {
     if (!request || isAuthenticating) return;
     try {
@@ -46,6 +49,7 @@ const LoginScreen = () => {
   };
 
   useEffect(() => {
+    // checking the token validity when initial mounting
     const checkTokenValidity = async () => {
       console.log("Checking token validity...");
 
@@ -71,6 +75,7 @@ const LoginScreen = () => {
   }, []);
 
   useEffect(() => {
+    // if response change then save the token
     const saveToken = async () => {
       if (response?.type === "success") {
         console.log("Auth Response:", response);

@@ -7,19 +7,20 @@ import {
   NavigationContainer,
   NavigationIndependentTree,
 } from "@react-navigation/native";
-import LoginScreen from "./screens/LoginScreen";
-import LikedSongsScreen from "./screens/LikedSongsScreen";
-import SearchScreen from "./screens/SearchScreen";
 import Feather from "@expo/vector-icons/Feather";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { StatusBar } from "react-native";
+
+import LoginScreen from "./screens/LoginScreen";
+import LikedSongsScreen from "./screens/LikedSongsScreen";
+import SearchScreen from "./screens/SearchScreen";
 import LibraryScreen from "./screens/LibraryScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ArtistScreen from "./screens/ArtistScreen";
 import SongInfo from "./screens/SongInfo";
 import AlbumScreen from "./screens/AlbumScreen";
 import PlaylistScreen from "./screens/PlaylistScreen";
-import { StatusBar } from "react-native";
 
 const Tab = createBottomTabNavigator();
 

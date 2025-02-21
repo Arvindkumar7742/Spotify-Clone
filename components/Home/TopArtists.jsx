@@ -1,5 +1,6 @@
-import { Text, Alert, ScrollView, ActivityIndicator, View } from "react-native";
+import { Text, Alert, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
+
 import { getUsersTopItems } from "../../services/operations/user";
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";

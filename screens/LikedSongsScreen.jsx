@@ -7,11 +7,12 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+
 import SongItem from "../components/SongItem";
 import { LikedSongsContext } from "../context/LikedSongsContext";
 
@@ -21,6 +22,7 @@ const LikedSongsScreen = () => {
   const { likedTracks } = useContext(LikedSongsContext);
   const [searchedTracks, setSearchedTracks] = useState(likedTracks);
 
+  // searching for the song
   function handleSearch(text) {
     const filteredTracks = likedTracks.filter((item) =>
       item.track.name.toLowerCase().includes(text.toLowerCase())
@@ -31,8 +33,6 @@ const LikedSongsScreen = () => {
     setInput(text);
     handleSearch(text);
   };
-
-  function playTrack() {}
 
   return (
     <>
@@ -57,6 +57,7 @@ const LikedSongsScreen = () => {
                   textAlignVertical: "top",
                   color: "white",
                 }}
+                value={input}
                 onChangeText={handleInputChange}
                 placeholder="Find in Liked songs"
                 placeholderTextColor="white"

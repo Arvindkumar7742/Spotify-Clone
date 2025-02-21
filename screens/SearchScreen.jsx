@@ -10,6 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+
 import TopTracks from "../components/TopTracks";
 import { getCategorizedResult } from "../services/operations/search";
 import ShowSearchResults from "../components/Search/ShowSearchResults";
@@ -35,6 +36,7 @@ const SearchScreen = () => {
     }
   };
 
+  // calling api's for searching the text
   const handleSearch = async () => {
     if (searchText.trim()) {
       setLoading(true);
@@ -52,6 +54,7 @@ const SearchScreen = () => {
     }
   };
 
+  // adding event for toggling between the search results and top tracks
   useEffect(() => {
     const onBackPress = () => {
       if (isSearchInputFocused) {

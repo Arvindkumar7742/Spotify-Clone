@@ -1,9 +1,10 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
 import { UserContext } from "../context/UserContext";
 
 const ProfileScreen = () => {

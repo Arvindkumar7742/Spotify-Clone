@@ -1,7 +1,8 @@
 import { View, Text, FlatList, Image, Pressable } from "react-native";
 import React from "react";
-import user from "../../assets/user.png";
 import { useNavigation } from "@react-navigation/native";
+
+import user from "../../assets/user.png";
 
 const Artists = ({ artists }) => {
   const navigation = useNavigation();

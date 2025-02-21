@@ -1,11 +1,12 @@
-import { View, Text, ScrollView, Pressable, Image, Alert } from "react-native";
+import { View, Text, Pressable, Image, Alert } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getFollowedArtists } from "../services/operations/user";
+import { useNavigation } from "@react-navigation/native";
+
 import CustomButton from "../components/Common/CustomButton";
 import { UserContext } from "../context/UserContext";
-import { useNavigation } from "expo-router";
 import ShowPlaylistArtist from "../components/ShowPlaylistArtist";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
@@ -19,6 +20,7 @@ const LibraryScreen = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // fetch all the followed artist when render initially
     const fetchData = async () => {
       setLoading(true);
       const [artistsResult] = await Promise.allSettled([getFollowedArtists()]);

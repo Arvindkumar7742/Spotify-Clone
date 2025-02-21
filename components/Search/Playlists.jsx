@@ -2,6 +2,7 @@ import { View, Text, FlatList, Image, Pressable } from "react-native";
 import React, { useContext, useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useNavigation } from "expo-router";
+
 import { FollowedPlaylistContext } from "../../context/FollowedPlaylistContext";
 import {
   followPlaylist,

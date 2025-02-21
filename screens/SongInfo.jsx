@@ -16,6 +16,7 @@ import {
 } from "@expo/vector-icons";
 import { ProgressBar } from "react-native-paper";
 import { useContext, useState } from "react";
+
 import { LikedSongsContext } from "../context/LikedSongsContext";
 import {
   removeTrackFromCurrentUser,
@@ -32,10 +33,15 @@ const SongInfo = () => {
     likedTracks.map((item) => item.track.id).includes(item.id)
   );
 
+  // function to add the song in like songs
   async function handleSongLike() {
     try {
+      // if song is already liked then we need to remove it else we need to add it
       if (isLiked) {
+        // calling api's for removing the songs from current user's saved tracks
         const result = await removeTrackFromCurrentUser(item.id);
+
+        // if successful then save the update the context
         if (result) {
           setLikedTracks((prev) =>
             prev.filter((it) => it.track.id !== item.id)
@@ -43,7 +49,10 @@ const SongInfo = () => {
           setIsLiked((pev) => !pev);
         }
       } else {
+        // calling api for saving the track
         const result = await saveTrackForCurrentUser(item.id);
+
+        // if successful then save into the liked songs
         if (result) {
           setLikedTracks((prev) => [{ track: item }, ...prev]);
           setIsLiked((pev) => !pev);

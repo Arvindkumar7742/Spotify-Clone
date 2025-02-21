@@ -1,8 +1,9 @@
 import { Alert, FlatList, Image, Pressable, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { getArtistTopSongs } from "../../services/operations/artist";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
+import { getArtistTopSongs } from "../../services/operations/artist";
 
 const TopSongs = ({ artistId }) => {
   const [topSongs, setTopSongs] = useState([]);

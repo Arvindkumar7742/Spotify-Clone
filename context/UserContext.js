@@ -6,6 +6,7 @@ const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  // function to fetch the current user by calling the api
   const fetchCurrentUser = async () => {
     try {
       const result = await getCurrentUser();

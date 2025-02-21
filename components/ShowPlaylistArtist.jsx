@@ -1,9 +1,10 @@
 import { View, Text, Pressable, FlatList, Image } from "react-native";
 import React from "react";
-import { getCombinedList } from "../utils/getCombinedList";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
+import { getCombinedList } from "../utils/getCombinedList";
 
 const ShowPlaylistArtist = ({ playlists, artists, activeCategory }) => {
   const navigation = useNavigation();

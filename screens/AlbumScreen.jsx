@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
+
 import { reduceUniqueSongs } from "../utils/getUniqueSongs";
 import { getAlbumTracks } from "../services/operations/album";
 
@@ -14,6 +15,7 @@ const AlbumScreen = () => {
   const [albumTracks, setAlbumTracks] = useState([]);
 
   useEffect(() => {
+    // fetch all the album track when initially rendered
     const fetchAlbumTracks = async () => {
       try {
         const result = await getAlbumTracks(item.id, item.total_tracks);

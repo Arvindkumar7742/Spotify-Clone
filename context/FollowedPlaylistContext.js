@@ -6,6 +6,7 @@ const FollowedPlaylistContext = createContext();
 const FollowedPlayListContextProvider = ({ children }) => {
   const [followedPlaylists, setFollowedPlaylists] = useState([]);
 
+  // function to fetch all followed playlist
   const fetchFollowedPlaylists = async () => {
     try {
       const result = await getUsersPlaylist();

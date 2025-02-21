@@ -1,8 +1,9 @@
-import { View, Text, Alert, ScrollView, Image, Pressable } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import { View, Text, ScrollView, Image, Pressable } from "react-native";
+import React, { useContext } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
 import NewReleases from "../components/Home/NewReleases";
 import RecentlyPlayed from "../components/Home/RecentlyPlayed";
 import TopArtists from "../components/Home/TopArtists";

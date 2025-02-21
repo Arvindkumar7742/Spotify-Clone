@@ -2,6 +2,7 @@ import { Text, View, Pressable, Image, Alert } from "react-native";
 import React, { useContext } from "react";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
 import { removeTrackFromCurrentUser } from "../services/operations/user";
 import { LikedSongsContext } from "../context/LikedSongsContext";
 
@@ -9,7 +10,8 @@ const SongItem = ({ item, isPlaying = false }) => {
   const navigation = useNavigation();
   const { setLikedTracks } = useContext(LikedSongsContext);
 
-  async function handleLikePress(e) {
+  // function to handle unlike like a song
+  async function handleLikePress() {
     try {
       const result = await removeTrackFromCurrentUser(item.track.id);
       if (result) {

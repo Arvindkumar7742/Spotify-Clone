@@ -1,5 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useState } from "react";
+
 import TopSongs from "./TopSongs";
 import ShowArtistAlbum from "./ShowArtistAlbum";
 

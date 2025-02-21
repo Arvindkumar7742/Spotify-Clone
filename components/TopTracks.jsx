@@ -2,6 +2,7 @@ import { View, Text, FlatList, Image, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getUsersTopItems } from "../services/operations/user";
 import { useNavigation } from "@react-navigation/native";
+
 import HorizontalLoader from "./Common/HorizontalLoader";
 
 const TopTracks = () => {
@@ -10,6 +11,7 @@ const TopTracks = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // fetching data of top songs wen component initially render
     const fetchTopTrack = async () => {
       setLoading(true);
       try {

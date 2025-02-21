@@ -6,6 +6,7 @@ const LikedSongsContext = createContext();
 const LikedSongsContextProvider = ({ children }) => {
   const [likedTracks, setLikedTracks] = useState([]);
 
+  // function to fetch all liked songs
   const fetchLikedSongs = async () => {
     try {
       const result = await getLikedTracks();
