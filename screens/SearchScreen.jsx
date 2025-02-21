@@ -13,11 +13,13 @@ import { Ionicons } from "@expo/vector-icons";
 import TopTracks from "../components/TopTracks";
 import { getCategorizedResult } from "../services/operations/search";
 import ShowSearchResults from "../components/Search/ShowSearchResults";
+import HorizontalLoader from "../components/Common/HorizontalLoader";
 
 const SearchScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const inputRef = useRef(null);
 
@@ -35,6 +37,7 @@ const SearchScreen = () => {
 
   const handleSearch = async () => {
     if (searchText.trim()) {
+      setLoading(true);
       try {
         const result = await getCategorizedResult(searchText);
 
@@ -43,6 +46,8 @@ const SearchScreen = () => {
         }
       } catch (err) {
         Alert.alert("Error", err.message);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -95,6 +100,8 @@ const SearchScreen = () => {
 
           {!isSearchInputFocused && searchText.trim().length === 0 ? (
             <TopTracks />
+          ) : loading ? (
+            <HorizontalLoader flag="top-track" />
           ) : (
             <ShowSearchResults searchResults={searchResults} />
           )}

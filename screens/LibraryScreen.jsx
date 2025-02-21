@@ -8,6 +8,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigation } from "expo-router";
 import ShowPlaylistArtist from "../components/ShowPlaylistArtist";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
+import HorizontalLoader from "../components/Common/HorizontalLoader";
 
 const LibraryScreen = () => {
   const navigation = useNavigation();
@@ -15,9 +16,11 @@ const LibraryScreen = () => {
   const { followedPlaylists } = useContext(FollowedPlaylistContext);
   const [artists, setArtists] = useState([]);
   const { user } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const [artistsResult] = await Promise.allSettled([getFollowedArtists()]);
 
       // Handle user artists
@@ -26,6 +29,7 @@ const LibraryScreen = () => {
       } else {
         Alert.alert("Error", "Failed to fetch user followed artists");
       }
+      setLoading(false);
     };
 
     fetchData();
@@ -70,13 +74,17 @@ const LibraryScreen = () => {
             ))}
           </View>
 
-          <View className="flex p-2 gap-2 flex-col">
-            <ShowPlaylistArtist
-              artists={artists}
-              playlists={followedPlaylists}
-              activeCategory={activeCategory}
-            />
-          </View>
+          {loading ? (
+            <HorizontalLoader flag="top-track" />
+          ) : (
+            <View className="flex p-2 gap-2 flex-col">
+              <ShowPlaylistArtist
+                artists={artists}
+                playlists={followedPlaylists}
+                activeCategory={activeCategory}
+              />
+            </View>
+          )}
         </View>
       </SafeAreaView>
     </LinearGradient>
