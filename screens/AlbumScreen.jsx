@@ -7,16 +7,19 @@ import { Entypo } from "@expo/vector-icons";
 
 import { reduceUniqueSongs } from "../utils/getUniqueSongs";
 import { getAlbumTracks } from "../services/operations/album";
+import HorizontalLoader from "../components/Common/HorizontalLoader";
 
 const AlbumScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { item } = route.params;
   const [albumTracks, setAlbumTracks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // fetch all the album track when initially rendered
     const fetchAlbumTracks = async () => {
+      setLoading(true);
       try {
         const result = await getAlbumTracks(item.id, item.total_tracks);
 
@@ -25,6 +28,8 @@ const AlbumScreen = () => {
         }
       } catch (err) {
         Alert.alert("Error", err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -67,53 +72,61 @@ const AlbumScreen = () => {
           <Text className="text-white text-lg font-bold">
             Album Hit {item.total_tracks} Songs
           </Text>
-          <FlatList
-            className="mt-5"
-            data={albumTracks}
-            keyExtractor={(item) => item?.id}
-            renderItem={({ item, index }) => (
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("SongInfo", { item: item });
-                }}
-                className="mb-2 flex-row items-center gap-2 my-1 rounded-md shadow-md p-1"
-                style={{ width: "100%" }}
-              >
-                {/* Text + Icon Wrapper */}
-                <View className="flex-row justify-between items-center flex-1">
-                  {/* Song Info */}
-                  <View className="flex-1">
-                    <Text
-                      className="text-white text-md font-bold"
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
-                    >
-                      {item?.name || "Unknown Melody"}
-                    </Text>
-                    <Text
-                      className="text-gray-400 text-xs"
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
-                    >
-                      {item.artists.map((artist) => artist.name).join(", ") ||
-                        "Unknown Artist"}
-                    </Text>
-                  </View>
+          {loading ? (
+            <HorizontalLoader flag="top-track" />
+          ) : (
+            <FlatList
+              className="mt-5"
+              data={albumTracks}
+              keyExtractor={(item) => item?.id}
+              renderItem={({ item, index }) => (
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate("SongInfo", { item: item });
+                  }}
+                  className="mb-2 flex-row items-center gap-2 my-1 rounded-md shadow-md p-1"
+                  style={{ width: "100%" }}
+                >
+                  {/* Text + Icon Wrapper */}
+                  <View className="flex-row justify-between items-center flex-1">
+                    {/* Song Info */}
+                    <View className="flex-1">
+                      <Text
+                        className="text-white text-md font-bold"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {item?.name || "Unknown Melody"}
+                      </Text>
+                      <Text
+                        className="text-gray-400 text-xs"
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {item.artists.map((artist) => artist.name).join(", ") ||
+                          "Unknown Artist"}
+                      </Text>
+                    </View>
 
-                  {/* Three Dots Icon */}
-                  <Entypo name="dots-three-vertical" size={22} color="white" />
+                    {/* Three Dots Icon */}
+                    <Entypo
+                      name="dots-three-vertical"
+                      size={22}
+                      color="white"
+                    />
+                  </View>
+                </Pressable>
+              )}
+              contentContainerStyle={{ paddingBottom: 950 }}
+              ListEmptyComponent={
+                <View className="flex items-center justify-center h-40">
+                  <Text className="text-white text-lg font-semibold">
+                    No Tracks Found
+                  </Text>
                 </View>
-              </Pressable>
-            )}
-            contentContainerStyle={{ paddingBottom: 950 }}
-            ListEmptyComponent={
-              <View className="flex items-center justify-center h-40">
-                <Text className="text-white text-lg font-semibold">
-                  No Tracks Found
-                </Text>
-              </View>
-            }
-          />
+              }
+            />
+          )}
         </View>
       </SafeAreaView>
     </LinearGradient>

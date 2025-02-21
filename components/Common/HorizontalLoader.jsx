@@ -7,7 +7,7 @@ const HorizontalLoader = ({ flag }) => {
       style={{
         margin: 4,
         width: flag == "top-track" ? 330 : 350,
-        height: flag == "top-track" ? 400 : 130,
+        height: flag == "top-track" || flag === "artist" ? 400 : 130,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#414040",
@@ -18,6 +18,7 @@ const HorizontalLoader = ({ flag }) => {
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
+        paddingLeft: flag == "artist" ? 10 : 4,
       }}
     >
       <ActivityIndicator color="white" size="large" />

@@ -4,13 +4,16 @@ import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { getArtistTopSongs } from "../../services/operations/artist";
+import HorizontalLoader from "../Common/HorizontalLoader";
 
 const TopSongs = ({ artistId }) => {
   const [topSongs, setTopSongs] = useState([]);
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchArtistsTopSongs = async () => {
+      setLoading(true);
       try {
         const result = await getArtistTopSongs(artistId);
 
@@ -19,6 +22,8 @@ const TopSongs = ({ artistId }) => {
         }
       } catch (err) {
         Alert.alert("Error", err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -26,67 +31,71 @@ const TopSongs = ({ artistId }) => {
   }, []);
   return (
     <>
-      <FlatList
-        className="mt-5"
-        data={topSongs}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item, index }) => (
-          <Pressable
-            onPress={() => {
-              navigation.navigate("SongInfo", {
-                item: item,
-              });
-            }}
-            style={{
-              width: "100%",
-            }}
-            className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
-          >
-            <View>
-              <Text className="text-white text-md font-bold mr-2">
-                {index + 1}
-              </Text>
-            </View>
-            <Image
-              className="w-[55px] h-[55px] rounded-md"
-              source={{ uri: item.album.images[0]?.url }}
-            />
-            <View
-              style={{
-                width: "73%",
+      {loading ? (
+        <HorizontalLoader flag="artist" />
+      ) : (
+        <FlatList
+          className="mt-5"
+          data={topSongs}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item, index }) => (
+            <Pressable
+              onPress={() => {
+                navigation.navigate("SongInfo", {
+                  item: item,
+                });
               }}
-              className="flex-row justify-between"
+              style={{
+                width: "100%",
+              }}
+              className="mb-2 flex-row w-1/2 items-center gap-2 mx-2 my-2 rounded-md shadow-md p-2"
             >
               <View>
-                <Text
-                  className="text-white text-[18px] font-bold w-[106px]"
-                  style={{
-                    width: "106px",
-                  }}
-                >
-                  {item?.name.length < 25
-                    ? item?.name
-                    : item?.name.slice(0, 25) + "..."}
-                </Text>
-                <Text className="text-white text-xs font-semibold w-[106px]">
-                  {item.album.artists[0]?.name.length < 25
-                    ? item.album.artists[0]?.name
-                    : item.album.artists[0]?.name.slice(0, 25) + "..."}
+                <Text className="text-white text-md font-bold mr-2">
+                  {index + 1}
                 </Text>
               </View>
-              <Entypo name="dots-three-vertical" size={22} color="white" />
+              <Image
+                className="w-[55px] h-[55px] rounded-md"
+                source={{ uri: item.album.images[0]?.url }}
+              />
+              <View
+                style={{
+                  width: "73%",
+                }}
+                className="flex-row justify-between"
+              >
+                <View>
+                  <Text
+                    className="text-white text-[18px] font-bold w-[106px]"
+                    style={{
+                      width: "106px",
+                    }}
+                  >
+                    {item?.name.length < 25
+                      ? item?.name
+                      : item?.name.slice(0, 25) + "..."}
+                  </Text>
+                  <Text className="text-white text-xs font-semibold w-[106px]">
+                    {item.album.artists[0]?.name.length < 25
+                      ? item.album.artists[0]?.name
+                      : item.album.artists[0]?.name.slice(0, 25) + "..."}
+                  </Text>
+                </View>
+                <Entypo name="dots-three-vertical" size={22} color="white" />
+              </View>
+            </Pressable>
+          )}
+          contentContainerStyle={{ paddingBottom: 950 }} // Prevent last item from getting cut off
+          ListEmptyComponent={
+            <View className="flex items-center justify-center h-40">
+              <Text className="text-white text-lg font-semibold">
+                No Tracks Found
+              </Text>
             </View>
-          </Pressable>
-        )}
-        contentContainerStyle={{ paddingBottom: 950 }} // Prevent last item from getting cut off
-        ListEmptyComponent={
-          <View className="flex items-center justify-center h-40">
-            <Text className="text-white text-lg font-semibold">
-              No Tracks Found
-            </Text>
-          </View>
-        }
-      />
+          }
+        />
+      )}
     </>
   );
 };
