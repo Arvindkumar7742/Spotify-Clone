@@ -1,10 +1,18 @@
-import { Alert, FlatList, Image, Pressable, Text, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
 import {
   followPlaylist,
@@ -76,7 +84,7 @@ const PlaylistScreen = () => {
       <SafeAreaView>
         <LinearGradient
           colors={["rgb(48, 25, 52)", "rgb(52, 52, 52)", "rgb(27, 18, 18)"]}
-          className="p-10 justify-center items-center"
+          className="p-10 justify-center items-center relative"
         >
           <Image
             style={{
@@ -87,6 +95,14 @@ const PlaylistScreen = () => {
               uri: item?.images[0].url,
             }}
           />
+          <TouchableOpacity className="absolute top-3 left-3 bg-black/50 w-[40px] h-[40px] justify-center items-center rounded-full">
+            <Ionicons
+              name="arrow-back-outline"
+              size={24}
+              color="white"
+              onPress={() => navigation.goBack()}
+            />
+          </TouchableOpacity>
         </LinearGradient>
 
         <View className="flex gap-2  p-4">
