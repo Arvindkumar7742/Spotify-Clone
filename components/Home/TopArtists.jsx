@@ -1,34 +1,10 @@
-import { Text, Alert, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
+import { Text, Alert, FlatList, RefreshControl } from "react-native";
+import React from "react";
 
-import { getUsersTopItems } from "../../services/operations/user";
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";
 
-const TopArtists = () => {
-  const [topArtists, setTopArtists] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchTopArtists() {
-      setLoading(true);
-      try {
-        const type = "artists";
-        const result = await getUsersTopItems(type);
-
-        if (result) {
-          setTopArtists(result);
-        }
-      } catch (err) {
-        Alert.alert("Error", err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchTopArtists();
-  }, []);
-
+const TopArtists = ({ loading, refreshing, topArtists }) => {
   return (
     <>
       <Text
@@ -42,11 +18,15 @@ const TopArtists = () => {
       >
         Your Top Artists
       </Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {loading ? (
-          <HorizontalLoader />
-        ) : (
-          topArtists.map((item, index) => (
+
+      {loading && !refreshing ? (
+        <HorizontalLoader />
+      ) : (
+        <FlatList
+          data={topArtists}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item, index }) => (
             <HorizontalCards
               imageSrc={item?.images[0]?.url}
               path="ArtistScreen"
@@ -54,9 +34,9 @@ const TopArtists = () => {
               key={index}
               item={item}
             />
-          ))
-        )}
-      </ScrollView>
+          )}
+        />
+      )}
     </>
   );
 };

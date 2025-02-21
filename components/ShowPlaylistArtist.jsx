@@ -1,18 +1,40 @@
-import { View, Text, Pressable, FlatList, Image } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  FlatList,
+  Image,
+  RefreshControl,
+} from "react-native";
+import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { getCombinedList } from "../utils/getCombinedList";
 
-const ShowPlaylistArtist = ({ playlists, artists, activeCategory }) => {
+const ShowPlaylistArtist = ({
+  playlists,
+  artists,
+  activeCategory,
+  fetchData,
+}) => {
   const navigation = useNavigation();
   let combinedList = getCombinedList(playlists, artists, activeCategory);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  };
 
   return (
     <View>
       <FlatList
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         data={combinedList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (

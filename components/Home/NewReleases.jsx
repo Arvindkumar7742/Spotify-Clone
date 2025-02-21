@@ -1,32 +1,10 @@
-import { View, Text, FlatList, Alert } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, FlatList } from "react-native";
+import React from "react";
 
-import { getNewReleases } from "../../services/operations/album";
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";
 
-const NewReleases = () => {
-  const [newReleases, setNewReleases] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchNewReleases = async () => {
-      setLoading(true);
-      try {
-        const result = await getNewReleases();
-
-        if (result) {
-          setNewReleases(result);
-        }
-      } catch (err) {
-        Alert.alert(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNewReleases();
-  }, []);
+const NewReleases = ({ newReleases, loading, refreshing }) => {
   return (
     <>
       <View className="h-[10px]" />
@@ -34,7 +12,7 @@ const NewReleases = () => {
         New Releases
       </Text>
 
-      {loading ? (
+      {loading && !refreshing ? (
         <HorizontalLoader />
       ) : (
         <FlatList

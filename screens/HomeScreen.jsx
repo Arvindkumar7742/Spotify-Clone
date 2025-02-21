@@ -1,5 +1,13 @@
-import { View, Text, ScrollView, Image, Pressable } from "react-native";
-import React, { useContext } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Pressable,
+  RefreshControl,
+  Alert,
+} from "react-native";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -8,14 +16,85 @@ import NewReleases from "../components/Home/NewReleases";
 import RecentlyPlayed from "../components/Home/RecentlyPlayed";
 import TopArtists from "../components/Home/TopArtists";
 import { UserContext } from "../context/UserContext";
+import { getNewReleases } from "../services/operations/album";
+import {
+  getRecentlyPlayed,
+  getUsersTopItems,
+} from "../services/operations/user";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
+  const [newReleases, setNewReleases] = useState([]);
+  const [recentlyPlayed, setRecentlyPlayed] = useState([]);
+  const [topArtists, setTopArtists] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchNewReleases = async () => {
+    setLoading(true);
+    try {
+      const result = await getNewReleases();
+      if (result) setNewReleases(result);
+    } catch (err) {
+      Alert.alert(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchRecentlyPlayed = async () => {
+    setLoading(true);
+    try {
+      const result = await getRecentlyPlayed();
+      if (result) {
+        setRecentlyPlayed(result);
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchTopArtists = async () => {
+    setLoading(true);
+    try {
+      const type = "artists";
+      const result = await getUsersTopItems(type);
+      if (result) {
+        setTopArtists(result);
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Function to Refresh All Components
+  const onRefresh = useCallback(async (fun1) => {
+    setRefreshing(true);
+    await fetchNewReleases();
+    await fetchRecentlyPlayed();
+    await fetchTopArtists();
+    setRefreshing(false);
+  }, []);
+
+  useEffect(() => {
+    fetchNewReleases();
+    fetchRecentlyPlayed();
+    fetchTopArtists();
+  }, []);
 
   return (
     <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
-      <ScrollView className="mt-10">
+      <ScrollView
+        className="mt-10"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View
           style={{
             padding: 10,
@@ -91,13 +170,25 @@ const HomeScreen = () => {
         </View>
 
         {/* users's top artists */}
-        <TopArtists />
+        <TopArtists
+          topArtists={topArtists}
+          loading={loading}
+          refreshing={refreshing}
+        />
 
         {/* New Release section to see all the new release songs */}
-        <NewReleases />
+        <NewReleases
+          newReleases={newReleases}
+          loading={loading}
+          refreshing={refreshing}
+        />
 
         {/* user's recently played songs */}
-        <RecentlyPlayed />
+        <RecentlyPlayed
+          recentlyPlayed={recentlyPlayed}
+          loading={loading}
+          refreshing={refreshing}
+        />
       </ScrollView>
     </LinearGradient>
   );

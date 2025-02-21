@@ -1,4 +1,11 @@
-import { View, Text, FlatList, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  Pressable,
+  RefreshControl,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { getUsersTopItems } from "../services/operations/user";
 import { useNavigation } from "@react-navigation/native";
@@ -9,25 +16,31 @@ const TopTracks = () => {
   const navigation = useNavigation();
   const [topTrack, setTopTracks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchTopTrack();
+    setRefreshing(false);
+  };
+
+  const fetchTopTrack = async () => {
+    setLoading(true);
+    try {
+      const type = "tracks";
+      const result = await getUsersTopItems(type);
+
+      if (result) {
+        setTopTracks(result);
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     // fetching data of top songs wen component initially render
-    const fetchTopTrack = async () => {
-      setLoading(true);
-      try {
-        const type = "tracks";
-        const result = await getUsersTopItems(type);
-
-        if (result) {
-          setTopTracks(result);
-        }
-      } catch (err) {
-        Alert.alert("Error", err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchTopTrack();
   }, []);
   return (
@@ -38,6 +51,9 @@ const TopTracks = () => {
           <HorizontalLoader flag="top-track" />
         ) : (
           <FlatList
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
             data={topTrack}
             keyExtractor={(item) => item.id}
             numColumns={2}

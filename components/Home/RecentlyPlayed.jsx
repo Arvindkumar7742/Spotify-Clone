@@ -1,40 +1,18 @@
-import { View, Text, FlatList, Alert } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, FlatList } from "react-native";
+import React from "react";
 
-import { getRecentlyPlayed } from "../../services/operations/user";
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";
 
-const RecentlyPlayed = () => {
-  const [recentlyPlayed, setRecentlyPlayed] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchRecentlyPlayed = async () => {
-      setLoading(true);
-      try {
-        const result = await getRecentlyPlayed();
-
-        if (result) {
-          setRecentlyPlayed(result);
-        }
-      } catch (err) {
-        Alert.alert("Error", err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecentlyPlayed();
-  }, []);
-
+const RecentlyPlayed = ({ loading, refreshing, recentlyPlayed }) => {
   return (
     <>
       <View className="h-[10px]" />
       <Text className="text-white text-[19px] font-bold mx-2 mt-2">
         Recently Played
       </Text>
-      {loading ? (
+
+      {loading && !refreshing ? (
         <HorizontalLoader />
       ) : (
         <FlatList

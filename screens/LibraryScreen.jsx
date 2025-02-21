@@ -19,21 +19,21 @@ const LibraryScreen = () => {
   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
+  const fetchData = async () => {
+    setLoading(true);
+    const [artistsResult] = await Promise.allSettled([getFollowedArtists()]);
+
+    // Handle user artists
+    if (artistsResult.status === "fulfilled") {
+      setArtists(artistsResult.value?.artists.items);
+    } else {
+      Alert.alert("Error", "Failed to fetch user followed artists");
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     // fetch all the followed artist when render initially
-    const fetchData = async () => {
-      setLoading(true);
-      const [artistsResult] = await Promise.allSettled([getFollowedArtists()]);
-
-      // Handle user artists
-      if (artistsResult.status === "fulfilled") {
-        setArtists(artistsResult.value?.artists.items);
-      } else {
-        Alert.alert("Error", "Failed to fetch user followed artists");
-      }
-      setLoading(false);
-    };
-
     fetchData();
   }, []);
 
@@ -81,6 +81,7 @@ const LibraryScreen = () => {
           ) : (
             <View className="flex p-2 gap-2 flex-col">
               <ShowPlaylistArtist
+                fetchData={fetchData}
                 artists={artists}
                 playlists={followedPlaylists}
                 activeCategory={activeCategory}
