@@ -36,9 +36,9 @@ const HomeScreen = () => {
 
   const [open, setOpen] = useState(false);
   const items = [
-    { label: "English", value: "en" },
-    { label: "Hindi", value: "hi" },
-    { label: "German", value: "de" },
+    { label: langJsonData["english"], value: "en" },
+    { label: langJsonData["hindi"], value: "hi" },
+    { label: langJsonData["german"], value: "de" },
   ];
 
   const fetchNewReleases = async () => {
@@ -150,7 +150,6 @@ const HomeScreen = () => {
               </Text>
             </Pressable>
 
-            {/* Dropdown beside "All" and "Music" */}
             <View
               style={{
                 zIndex: 1000,

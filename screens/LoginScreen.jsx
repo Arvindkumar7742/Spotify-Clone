@@ -16,6 +16,7 @@ import { authConfig } from "../config";
 import { UserContext } from "../context/UserContext";
 import { LikedSongsContext } from "../context/LikedSongsContext";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
+import { TranslationContext } from "../context/TranslationContext";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -23,6 +24,7 @@ const LoginScreen = () => {
   const { fetchCurrentUser } = useContext(UserContext);
   const { fetchLikedSongs } = useContext(LikedSongsContext);
   const { fetchFollowedPlaylists } = useContext(FollowedPlaylistContext);
+  const { langJsonData } = useContext(TranslationContext);
 
   // hook for making the calling or opening the spotify app using expo auth session
   const [request, response, promptAsync] = useAuthRequest(
@@ -117,7 +119,7 @@ const LoginScreen = () => {
           className="text-center mt-[150px]"
         />
         <Text className="text-white font-bold text-center text-[28px] p-5 mt-8">
-          Millions of Songs Free on Spotify!
+          {langJsonData["sign_in_heading"]}
         </Text>
 
         <Pressable
@@ -133,7 +135,7 @@ const LoginScreen = () => {
             <ActivityIndicator color="white" />
           ) : (
             <Text style={{ color: "white", textAlign: "center", fontSize: 18 }}>
-              Sign in with Spotify
+              {langJsonData["sign_in_btn"]}
             </Text>
           )}
         </Pressable>

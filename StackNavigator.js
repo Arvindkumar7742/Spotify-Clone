@@ -28,7 +28,7 @@ const Tab = createBottomTabNavigator();
 
 // create the bottom tabs
 function BottomTabs() {
-  // const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useContext(TranslationContext);
 
   return (
     <Tab.Navigator
@@ -54,7 +54,7 @@ function BottomTabs() {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: langJsonData["home"] ? langJsonData["home"] : "Home",
           headerShown: false,
           tabBarLabelStyle: {
             color: "white",
@@ -71,7 +71,9 @@ function BottomTabs() {
         name="Search"
         component={SearchScreen}
         options={{
-          tabBarLabel: "Search",
+          tabBarLabel: langJsonData["search"]
+            ? langJsonData["search"]
+            : "Search",
           headerShown: false,
           tabBarLabelStyle: {
             color: "white",
@@ -88,7 +90,9 @@ function BottomTabs() {
         name="Your Library"
         component={LibraryScreen}
         options={{
-          tabBarLabel: "Your library",
+          tabBarLabel: langJsonData["your_library"]
+            ? langJsonData["your_library"]
+            : "Your library",
           headerShown: false,
           tabBarLabelStyle: {
             color: "white",
