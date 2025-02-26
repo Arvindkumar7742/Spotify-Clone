@@ -4,7 +4,7 @@ import { getLanguageJsonData } from "../services/operations/translation";
 const TranslationContext = createContext();
 
 const TranslationContextProvider = ({ children }) => {
-  const [lang, setLang] = useState("de");
+  const [lang, setLang] = useState("en");
   const [langJsonData, setLangJsonData] = useState({});
 
   // function to fetch all liked songs
