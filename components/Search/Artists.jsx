@@ -1,11 +1,14 @@
 import { View, Text, FlatList, Image, Pressable } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import user from "../../assets/user.png";
+import { TranslationContext } from "../../context/TranslationContext";
 
 const Artists = ({ artists }) => {
   const navigation = useNavigation();
+  const { langJsonData } = useContext(TranslationContext);
+
   return (
     <FlatList
       className="mt-5"
@@ -51,7 +54,7 @@ const Artists = ({ artists }) => {
       ListEmptyComponent={
         <View className="flex items-center justify-center h-40">
           <Text className="text-white text-lg font-semibold">
-            No Artists Found
+            {langJsonData["empty_artists"]}
           </Text>
         </View>
       }

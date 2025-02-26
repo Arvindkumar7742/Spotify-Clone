@@ -5,6 +5,7 @@ import Navigation from "../StackNavigator";
 import { UserContextProvider } from "../context/UserContext";
 import { LikedSongsContextProvider } from "../context/LikedSongsContext";
 import { FollowedPlayListContextProvider } from "../context/FollowedPlaylistContext";
+import { TranslationContextProvider } from "../context/TranslationContext";
 
 const RootLayout = () => {
   return (
@@ -12,7 +13,9 @@ const RootLayout = () => {
       <UserContextProvider>
         <LikedSongsContextProvider>
           <FollowedPlayListContextProvider>
-            <Navigation />
+            <TranslationContextProvider>
+              <Navigation />
+            </TranslationContextProvider>
           </FollowedPlayListContextProvider>
         </LikedSongsContextProvider>
       </UserContextProvider>

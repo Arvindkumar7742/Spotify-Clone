@@ -1,14 +1,23 @@
 import { View, Text, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Tracks from "./Tracks";
 import Albums from "./Albums";
 import Playlists from "./Playlists";
 import Artists from "./Artists";
+import { TranslationContext } from "../../context/TranslationContext";
 
 const ShowSearchResults = ({ searchResults }) => {
   const [selected, setSelected] = useState("Tracks");
-  const filters = ["Tracks", "Artists", "Albums", "Playlists"];
+  const { langJsonData } = useContext(TranslationContext);
+
+  const filters = [
+    langJsonData["tracks"],
+    langJsonData["artists"],
+    langJsonData["albums"],
+    langJsonData["playlists"],
+  ];
+
   return (
     <>
       {Object.entries(searchResults).length > 0 && (
@@ -30,16 +39,16 @@ const ShowSearchResults = ({ searchResults }) => {
               );
             })}
           </View>
-          {selected === "Tracks" && (
+          {selected === langJsonData["tracks"] && (
             <Tracks tracks={searchResults?.tracks?.items} />
           )}
-          {selected === "Albums" && (
+          {selected === langJsonData["albums"] && (
             <Albums albums={searchResults?.albums?.items} />
           )}
-          {selected === "Playlists" && (
+          {selected === langJsonData["playlists"] && (
             <Playlists playlists={searchResults?.playlists?.items} />
           )}
-          {selected === "Artists" && (
+          {selected === langJsonData["artists"] && (
             <Artists artists={searchResults?.artists?.items} />
           )}
         </View>

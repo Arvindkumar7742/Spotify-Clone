@@ -21,11 +21,15 @@ import ArtistScreen from "./screens/ArtistScreen";
 import SongInfo from "./screens/SongInfo";
 import AlbumScreen from "./screens/AlbumScreen";
 import PlaylistScreen from "./screens/PlaylistScreen";
+import { useContext } from "react";
+import { TranslationContext } from "./context/TranslationContext";
 
 const Tab = createBottomTabNavigator();
 
 // create the bottom tabs
 function BottomTabs() {
+  const { langJsonData } = useContext(TranslationContext);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -50,7 +54,7 @@ function BottomTabs() {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: langJsonData["home"],
           headerShown: false,
           tabBarLabelStyle: {
             color: "white",
@@ -67,7 +71,7 @@ function BottomTabs() {
         name="Search"
         component={SearchScreen}
         options={{
-          tabBarLabel: "Search",
+          tabBarLabel: langJsonData["search"],
           headerShown: false,
           tabBarLabelStyle: {
             color: "white",
@@ -81,10 +85,10 @@ function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="Library"
+        name="Your Library"
         component={LibraryScreen}
         options={{
-          tabBarLabel: "Your Library",
+          tabBarLabel: langJsonData["your_library"],
           headerShown: false,
           tabBarLabelStyle: {
             color: "white",

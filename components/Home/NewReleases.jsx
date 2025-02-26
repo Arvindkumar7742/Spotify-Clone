@@ -1,15 +1,17 @@
 import { View, Text, FlatList } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";
+import { TranslationContext } from "../../context/TranslationContext";
 
 const NewReleases = ({ newReleases, loading, refreshing }) => {
+  const { langJsonData } = useContext(TranslationContext);
   return (
     <>
       <View className="h-[10px]" />
       <Text className="text-white text-[19px] font-bold mx-2 mt-2">
-        New Releases
+        {langJsonData["new_release_heading"]}
       </Text>
 
       {loading && !refreshing ? (

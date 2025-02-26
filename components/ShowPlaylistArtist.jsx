@@ -6,12 +6,13 @@ import {
   Image,
   RefreshControl,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { getCombinedList } from "../utils/getCombinedList";
+import { TranslationContext } from "../context/TranslationContext";
 
 const ShowPlaylistArtist = ({
   playlists,
@@ -20,8 +21,14 @@ const ShowPlaylistArtist = ({
   fetchData,
 }) => {
   const navigation = useNavigation();
-  let combinedList = getCombinedList(playlists, artists, activeCategory);
   const [refreshing, setRefreshing] = useState(false);
+  const { langJsonData } = useContext(TranslationContext);
+  let combinedList = getCombinedList(
+    playlists,
+    artists,
+    activeCategory,
+    langJsonData
+  );
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -73,7 +80,7 @@ const ShowPlaylistArtist = ({
           </Pressable>
         )}
         ListHeaderComponent={
-          activeCategory !== "Artists" && (
+          activeCategory !== langJsonData["artists"] && (
             <Pressable
               onPress={() => navigation.navigate("Liked")}
               className="mb-2 w-full flex-row items-center gap-5 p-2 bg-[#202020] rounded-md shadow-md"
@@ -89,9 +96,11 @@ const ShowPlaylistArtist = ({
 
               <View>
                 <Text className="text-white text-sm font-bold">
-                  Liked Songs
+                  {langJsonData["liked_songs"]}
                 </Text>
-                <Text className="text-gray-400 text-sm">Playlist</Text>
+                <Text className="text-gray-400 text-sm">
+                  {langJsonData["playlists"]}
+                </Text>
               </View>
             </Pressable>
           )

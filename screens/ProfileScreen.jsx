@@ -6,10 +6,13 @@ import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { UserContext } from "../context/UserContext";
+import { TranslationContext } from "../context/TranslationContext";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
+  const { langJsonData } = useContext(TranslationContext);
+  console.log("jkbb===>>>>", langJsonData);
 
   return (
     <View className="flex-1">
@@ -46,16 +49,24 @@ const ProfileScreen = () => {
               </Text>
               <Text className="text-white font-bold text-sm">
                 {user?.followers.total}
-                <Text className="text-gray-400 font-semibold"> followers</Text>
+                <Text className="text-gray-400 font-semibold">
+                  {" "}
+                  {langJsonData["followers"]}
+                </Text>
                 <Text className="text-white"> • </Text>8
-                <Text className="text-gray-400 font-semibold"> following</Text>
+                <Text className="text-gray-400 font-semibold">
+                  {" "}
+                  {langJsonData["following"]}
+                </Text>
               </Text>
             </View>
           </View>
         </View>
         <View className="flex-row items-center gap-5">
           <TouchableOpacity className="border-[1px] border-white p-2 rounded-3xl w-[80px]">
-            <Text className="text-white text-center">Edit</Text>
+            <Text className="text-white text-center">
+              {langJsonData["edit"]}
+            </Text>
           </TouchableOpacity>
           <Entypo name="dots-three-vertical" size={22} color="white" />
         </View>
@@ -67,7 +78,7 @@ const ProfileScreen = () => {
         style={{ height: "100%" }}
       >
         <Text className="text-white text-center text-2xl mt-5 font-semibold">
-          No Recent Activity
+          {langJsonData["no_recent_activity"]}
         </Text>
       </LinearGradient>
     </View>

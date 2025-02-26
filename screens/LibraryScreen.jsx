@@ -10,14 +10,16 @@ import { UserContext } from "../context/UserContext";
 import ShowPlaylistArtist from "../components/ShowPlaylistArtist";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
+import { TranslationContext } from "../context/TranslationContext";
 
 const LibraryScreen = () => {
   const navigation = useNavigation();
-  const [activeCategory, setActiveCategory] = useState("All");
   const { followedPlaylists } = useContext(FollowedPlaylistContext);
   const [artists, setArtists] = useState([]);
   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
+  const { langJsonData } = useContext(TranslationContext);
+  const [activeCategory, setActiveCategory] = useState(langJsonData["all"]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -62,11 +64,17 @@ const LibraryScreen = () => {
                 }}
               />
             </Pressable>
-            <Text className="text-white text-3xl font-bold">Your Library</Text>
+            <Text className="text-white text-3xl font-bold">
+              {langJsonData["your_library"]}
+            </Text>
           </View>
 
           <View className="flex flex-row gap-3">
-            {["All", "Artists", "Playlists"].map((category) => (
+            {[
+              langJsonData["all"],
+              langJsonData["artists"],
+              langJsonData["playlists"],
+            ].map((category) => (
               <CustomButton
                 key={category}
                 isActive={activeCategory === category}

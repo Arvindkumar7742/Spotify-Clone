@@ -21,6 +21,7 @@ import {
   getRecentlyPlayed,
   getUsersTopItems,
 } from "../services/operations/user";
+import { TranslationContext } from "../context/TranslationContext";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -30,6 +31,8 @@ const HomeScreen = () => {
   const [topArtists, setTopArtists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+
+  const { lang, setLang, langJsonData } = useContext(TranslationContext);
 
   const fetchNewReleases = async () => {
     setLoading(true);
@@ -127,11 +130,15 @@ const HomeScreen = () => {
 
             <View className="mx-3 my-1 flex-row items-center space-x-2">
               <Pressable className="bg-[#309635] p-2 pl-6 pr-6 mr-2 rounded-full">
-                <Text className="text-white text-base">All</Text>
+                <Text className="text-white text-base">
+                  {langJsonData["all"]}
+                </Text>
               </Pressable>
 
               <Pressable className="bg-[#282828] p-2 pl-6 pr-6 rounded-full">
-                <Text className="text-white text-base">Music</Text>
+                <Text className="text-white text-base">
+                  {langJsonData["music"]}
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -152,7 +159,9 @@ const HomeScreen = () => {
               </Pressable>
             </LinearGradient>
 
-            <Text className="text-white text-xs font-bold">Liked Songs</Text>
+            <Text className="text-white text-xs font-bold">
+              {langJsonData["liked_songs"]}
+            </Text>
           </Pressable>
 
           {/* Random Artist */}
@@ -163,7 +172,7 @@ const HomeScreen = () => {
             />
             <View>
               <Text className="text-white text-xs font-bold">
-                Hiphop Tamhiza
+                {langJsonData["hiphop_tamhiza"]}
               </Text>
             </View>
           </View>

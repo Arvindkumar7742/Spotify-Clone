@@ -6,7 +6,7 @@ import {
   Pressable,
   BackHandler,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,12 +15,14 @@ import TopTracks from "../components/TopTracks";
 import { getCategorizedResult } from "../services/operations/search";
 import ShowSearchResults from "../components/Search/ShowSearchResults";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
+import { TranslationContext } from "../context/TranslationContext";
 
 const SearchScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { langJsonData } = useContext(TranslationContext);
 
   const inputRef = useRef(null);
 
@@ -76,7 +78,9 @@ const SearchScreen = () => {
       <SafeAreaView className="flex-1">
         <View className="px-4 flex flex-col gap-10 flex-1 pb-[52px]">
           <View className="w-full mt-10 flex flex-row items-center gap-6">
-            <Text className="text-white text-3xl font-bold">Search</Text>
+            <Text className="text-white text-3xl font-bold">
+              {langJsonData["search"]}
+            </Text>
           </View>
 
           <View className="relative w-full justify-center">
@@ -96,7 +100,7 @@ const SearchScreen = () => {
               onChangeText={handleTextChange}
               value={searchText}
               className="bg-white pl-14 text-lg font-semibold rounded-lg h-16"
-              placeholder="What do you want to listen to?"
+              placeholder={langJsonData["input_placeholder_text"]}
               placeholderTextColor="rgba(0, 0, 0, 0.8)"
             />
           </View>

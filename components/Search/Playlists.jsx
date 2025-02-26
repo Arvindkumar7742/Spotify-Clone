@@ -8,6 +8,7 @@ import {
   followPlaylist,
   unfollowPlaylist,
 } from "../../services/operations/playlist";
+import { TranslationContext } from "../../context/TranslationContext";
 
 const Playlists = ({ playlists }) => {
   const navigation = useNavigation();
@@ -17,6 +18,7 @@ const Playlists = ({ playlists }) => {
   const [isFollowed, setIsFollowed] = useState(
     followedPlaylists.map((item) => item.id)
   );
+  const { langJsonData } = useContext(TranslationContext);
 
   async function handleFollowAPlaylist(item) {
     try {
@@ -105,7 +107,7 @@ const Playlists = ({ playlists }) => {
       ListEmptyComponent={
         <View className="flex items-center justify-center h-40">
           <Text className="text-white text-lg font-semibold">
-            No Albums Found
+            {langJsonData["empty_playlists"]}
           </Text>
         </View>
       }

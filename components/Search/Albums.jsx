@@ -1,10 +1,13 @@
 import { View, Text, FlatList, Image, Pressable } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import { TranslationContext } from "../../context/TranslationContext";
 
 const Albums = ({ albums }) => {
   const navigation = useNavigation();
+  const { langJsonData } = useContext(TranslationContext);
+
   return (
     <SafeAreaView>
       <FlatList
@@ -58,7 +61,7 @@ const Albums = ({ albums }) => {
         ListEmptyComponent={
           <View className="flex items-center justify-center h-40">
             <Text className="text-white text-lg font-semibold">
-              No Albums Found
+              {langJsonData["empty_albums"]}
             </Text>
           </View>
         }

@@ -6,17 +6,19 @@ import {
   Pressable,
   RefreshControl,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getUsersTopItems } from "../services/operations/user";
 import { useNavigation } from "@react-navigation/native";
 
 import HorizontalLoader from "./Common/HorizontalLoader";
+import { TranslationContext } from "../context/TranslationContext";
 
 const TopTracks = () => {
   const navigation = useNavigation();
   const [topTrack, setTopTracks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const { langJsonData } = useContext(TranslationContext);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -46,7 +48,9 @@ const TopTracks = () => {
   return (
     <>
       <View className="w-full">
-        <Text className="text-white m-2 font-bold text-xl">Top Tracks</Text>
+        <Text className="text-white m-2 font-bold text-xl">
+          {langJsonData["top_tracks_heading"]}
+        </Text>
         {loading ? (
           <HorizontalLoader flag="top-track" />
         ) : (

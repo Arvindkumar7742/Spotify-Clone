@@ -1,10 +1,13 @@
-import { Text, Alert, FlatList, RefreshControl } from "react-native";
-import React from "react";
+import { Text, FlatList } from "react-native";
+import React, { useContext } from "react";
 
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";
+import { TranslationContext } from "../../context/TranslationContext";
 
 const TopArtists = ({ loading, refreshing, topArtists }) => {
+  const { langJsonData } = useContext(TranslationContext);
+
   return (
     <>
       <Text
@@ -16,7 +19,7 @@ const TopArtists = ({ loading, refreshing, topArtists }) => {
           marginTop: 10,
         }}
       >
-        Your Top Artists
+        {langJsonData["top_artist_heading"]}
       </Text>
 
       {loading && !refreshing ? (
