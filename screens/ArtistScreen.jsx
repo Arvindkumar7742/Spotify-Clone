@@ -1,16 +1,18 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import ShowArtistInfo from "../components/Artists/ShowArtistInfo";
+import { TranslationContext } from "../context/TranslationContext";
 
 const ArtistScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { item } = route.params;
+  const { langJsonData } = useContext(TranslationContext);
 
   return (
     <LinearGradient colors={["#040306", "#131624"]} style={{ height: "100%" }}>
@@ -40,7 +42,7 @@ const ArtistScreen = () => {
             {item?.followers?.total?.toLocaleString()}
           </Text>
           <Text className="text-gray-300 text-lg font-medium tracking-wide">
-            <Text> </Text> Followers
+            <Text> </Text> {langJsonData["followers"]}
           </Text>
         </View>
         {/* Genres */}

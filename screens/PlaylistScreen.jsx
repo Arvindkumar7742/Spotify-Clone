@@ -22,6 +22,7 @@ import {
 import { reduceUniqueSongs } from "../utils/getUniqueSongs";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
+import { TranslationContext } from "../context/TranslationContext";
 
 const PlaylistScreen = () => {
   const navigation = useNavigation();
@@ -35,6 +36,7 @@ const PlaylistScreen = () => {
     followedPlaylists.map((item) => item.id)
   );
   const [loading, setLoading] = useState(false);
+  const { langJsonData } = useContext(TranslationContext);
 
   // function to follow a playlist
   async function handleFollowAPlaylist() {
@@ -109,7 +111,7 @@ const PlaylistScreen = () => {
           <Text className="text-white text-xl font-bold">{item?.name}</Text>
           <View className="flex-row justify-between">
             <Text className="text-white text-md font-semibold">
-              {item.tracks.total} Songs
+              {item.tracks.total} {langJsonData["songs"]}
             </Text>
             <MaterialIcons
               onPress={() => {
@@ -127,7 +129,9 @@ const PlaylistScreen = () => {
         </View>
 
         <View className="px-4 ">
-          <Text className="text-white text-lg font-bold">Songs</Text>
+          <Text className="text-white text-lg font-bold">
+            {langJsonData["songs"]}
+          </Text>
           {loading ? (
             <HorizontalLoader flag="top-track" />
           ) : (

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -16,6 +16,7 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import { reduceUniqueSongs } from "../utils/getUniqueSongs";
 import { getAlbumTracks } from "../services/operations/album";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
+import { TranslationContext } from "../context/TranslationContext";
 
 const AlbumScreen = () => {
   const navigation = useNavigation();
@@ -23,6 +24,7 @@ const AlbumScreen = () => {
   const { item } = route.params;
   const [albumTracks, setAlbumTracks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { langJsonData } = useContext(TranslationContext);
 
   useEffect(() => {
     // fetch all the album track when initially rendered
@@ -86,7 +88,8 @@ const AlbumScreen = () => {
 
         <View className="px-4 ">
           <Text className="text-white text-lg font-bold">
-            Album Hit {item.total_tracks} Songs
+            {langJsonData["album_hit"]} {item.total_tracks}{" "}
+            {langJsonData["songs"]}
           </Text>
           {loading ? (
             <HorizontalLoader flag="top-track" />

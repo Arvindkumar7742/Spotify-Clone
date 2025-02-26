@@ -1,19 +1,21 @@
 import { View, Text, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import TopSongs from "./TopSongs";
 import ShowArtistAlbum from "./ShowArtistAlbum";
+import { TranslationContext } from "../../context/TranslationContext";
 
 const ShowArtistInfo = ({ artistId }) => {
-  const [selected, setSelected] = useState("Top songs");
-  const filters = ["Top songs", "Albums"];
+  const { langJsonData } = useContext(TranslationContext);
+  const [selected, setSelected] = useState(langJsonData["top_songs"]);
+  const filters = [langJsonData["top_songs"], langJsonData["albums"]];
 
   return (
     <View>
       <View className="flex-row w-full gap-6 p-3">
-        {filters.map((filter) => {
+        {filters.map((filter, index) => {
           return (
-            <Pressable key={filter} onPress={() => setSelected(filter)}>
+            <Pressable key={index} onPress={() => setSelected(filter)}>
               <Text
                 className={`text-white ${
                   selected === filter && "font-bold"
@@ -36,8 +38,12 @@ const ShowArtistInfo = ({ artistId }) => {
         })}
       </View>
 
-      {selected === "Top songs" && <TopSongs artistId={artistId} />}
-      {selected === "Albums" && <ShowArtistAlbum artistId={artistId} />}
+      {selected === langJsonData["top_songs"] && (
+        <TopSongs artistId={artistId} />
+      )}
+      {selected === langJsonData["albums"] && (
+        <ShowArtistAlbum artistId={artistId} />
+      )}
     </View>
   );
 };
