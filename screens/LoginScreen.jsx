@@ -16,7 +16,10 @@ import { authConfig } from "../config";
 import { UserContext } from "../context/UserContext";
 import { LikedSongsContext } from "../context/LikedSongsContext";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLang, setLangJsonData } from "../redux/slices/langSlice";
+import { getLanguageJsonData } from "../services/operations/translation";
+import { detectUserLanguage } from "../utils/getLocalLanguage";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -25,6 +28,7 @@ const LoginScreen = () => {
   const { fetchLikedSongs } = useContext(LikedSongsContext);
   const { fetchFollowedPlaylists } = useContext(FollowedPlaylistContext);
   const { langJsonData } = useSelector((state) => state.lang);
+  const dispatch = useDispatch();
 
   // hook for making the calling or opening the spotify app using expo auth session
   const [request, response, promptAsync] = useAuthRequest(
@@ -50,6 +54,20 @@ const LoginScreen = () => {
     }
   };
 
+  async function handleInitialLanguageSetup() {
+    try {
+      const detectedLang = detectUserLanguage();
+      const result = await getLanguageJsonData(detectedLang);
+
+      if (result) {
+        dispatch(setLang(detectedLang));
+        dispatch(setLangJsonData(result));
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    }
+  }
+
   useEffect(() => {
     // checking the token validity when initial mounting
     const checkTokenValidity = async () => {
@@ -67,9 +85,12 @@ const LoginScreen = () => {
           navigation.replace("Main");
         } else {
           console.log("Token expired, clearing storage...");
+          handleInitialLanguageSetup();
           await AsyncStorage.removeItem("token");
           await AsyncStorage.removeItem("expirationDate");
         }
+      } else {
+        handleInitialLanguageSetup();
       }
     };
 

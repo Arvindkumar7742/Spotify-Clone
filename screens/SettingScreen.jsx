@@ -19,8 +19,6 @@ const SettingScreen = () => {
   ];
   async function handleLanguage(val) {
     try {
-      console.log("value is::=>", val);
-
       const result = await getLanguageJsonData(val);
 
       if (result) {
@@ -46,10 +44,12 @@ const SettingScreen = () => {
             color="white"
             onPress={() => navigation.goBack()}
           />
-          <Text className="text-white">Settings</Text>
+          <Text className="text-white">{langJsonData["settings"]}</Text>
         </View>
         <View>
-          <Text className="text-gray-200">Choose Your language</Text>
+          <Text className="text-gray-200">
+            {langJsonData["setting_heading"]}
+          </Text>
           <View className="mt-5 gap-2">
             {items.map((item) => (
               <TouchableOpacity

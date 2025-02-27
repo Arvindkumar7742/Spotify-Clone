@@ -1,10 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { detectUserLanguage } from "../../utils/getLocalLanguage";
+import { getLanguageJsonData } from "../../services/operations/translation";
 
-const initialState = {
-  lang: detectUserLanguage(),
+const detectedLang = detectUserLanguage();
+
+let initialState = {
+  lang: detectedLang,
   langJsonData: {},
 };
+
+// Fetch language JSON automatically on slice initialization
+(async () => {
+  try {
+    const data = await getLanguageJsonData(detectedLang);
+
+    initialState = { lang: detectedLang, langJsonData: data }; // Set JSON data before slice initializes
+  } catch (error) {
+    console.error("Failed to fetch language data:", error);
+  }
+})();
 
 export const langSlice = createSlice({
   name: "lang",
