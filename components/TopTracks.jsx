@@ -11,14 +11,14 @@ import { getUsersTopItems } from "../services/operations/user";
 import { useNavigation } from "@react-navigation/native";
 
 import HorizontalLoader from "./Common/HorizontalLoader";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const TopTracks = () => {
   const navigation = useNavigation();
   const [topTrack, setTopTracks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   const onRefresh = async () => {
     setRefreshing(true);

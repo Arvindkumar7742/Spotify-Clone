@@ -12,7 +12,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import { getCombinedList } from "../utils/getCombinedList";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const ShowPlaylistArtist = ({
   playlists,
@@ -22,7 +22,7 @@ const ShowPlaylistArtist = ({
 }) => {
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
   let combinedList = getCombinedList(
     playlists,
     artists,

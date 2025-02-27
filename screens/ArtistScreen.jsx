@@ -6,13 +6,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import ShowArtistInfo from "../components/Artists/ShowArtistInfo";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const ArtistScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { item } = route.params;
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   return (
     <LinearGradient colors={["#040306", "#131624"]} style={{ height: "100%" }}>

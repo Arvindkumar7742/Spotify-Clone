@@ -3,10 +3,10 @@ import React, { useContext } from "react";
 
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";
-import { TranslationContext } from "../../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const NewReleases = ({ newReleases, loading, refreshing }) => {
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
   return (
     <>
       <View className="h-[10px]" />

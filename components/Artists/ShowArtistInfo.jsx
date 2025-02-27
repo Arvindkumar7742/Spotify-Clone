@@ -3,10 +3,10 @@ import React, { useContext, useState } from "react";
 
 import TopSongs from "./TopSongs";
 import ShowArtistAlbum from "./ShowArtistAlbum";
-import { TranslationContext } from "../../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const ShowArtistInfo = ({ artistId }) => {
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
   const [selected, setSelected] = useState(langJsonData["top_songs"]);
   const filters = [langJsonData["top_songs"], langJsonData["albums"]];
 

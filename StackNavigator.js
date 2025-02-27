@@ -21,14 +21,14 @@ import ArtistScreen from "./screens/ArtistScreen";
 import SongInfo from "./screens/SongInfo";
 import AlbumScreen from "./screens/AlbumScreen";
 import PlaylistScreen from "./screens/PlaylistScreen";
-import { useContext } from "react";
-import { TranslationContext } from "./context/TranslationContext";
+import SettingScreen from "./screens/SettingScreen";
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
 // create the bottom tabs
 function BottomTabs() {
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   return (
     <Tab.Navigator
@@ -157,6 +157,11 @@ function Navigation() {
             <Stack.Screen
               name="PlaylistPage"
               component={PlaylistScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="settings"
+              component={SettingScreen}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

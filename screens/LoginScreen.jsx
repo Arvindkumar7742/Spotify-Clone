@@ -16,7 +16,7 @@ import { authConfig } from "../config";
 import { UserContext } from "../context/UserContext";
 import { LikedSongsContext } from "../context/LikedSongsContext";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -24,7 +24,7 @@ const LoginScreen = () => {
   const { fetchCurrentUser } = useContext(UserContext);
   const { fetchLikedSongs } = useContext(LikedSongsContext);
   const { fetchFollowedPlaylists } = useContext(FollowedPlaylistContext);
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   // hook for making the calling or opening the spotify app using expo auth session
   const [request, response, promptAsync] = useAuthRequest(

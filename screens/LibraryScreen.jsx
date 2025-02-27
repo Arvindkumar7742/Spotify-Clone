@@ -10,7 +10,7 @@ import { UserContext } from "../context/UserContext";
 import ShowPlaylistArtist from "../components/ShowPlaylistArtist";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const LibraryScreen = () => {
   const navigation = useNavigation();
@@ -18,7 +18,7 @@ const LibraryScreen = () => {
   const [artists, setArtists] = useState([]);
   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
   const [activeCategory, setActiveCategory] = useState(langJsonData["all"]);
 
   const fetchData = async () => {

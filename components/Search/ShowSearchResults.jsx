@@ -5,11 +5,11 @@ import Tracks from "./Tracks";
 import Albums from "./Albums";
 import Playlists from "./Playlists";
 import Artists from "./Artists";
-import { TranslationContext } from "../../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const ShowSearchResults = ({ searchResults }) => {
   const [selected, setSelected] = useState("Tracks");
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   const filters = [
     langJsonData["tracks"],

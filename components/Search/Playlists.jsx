@@ -8,7 +8,7 @@ import {
   followPlaylist,
   unfollowPlaylist,
 } from "../../services/operations/playlist";
-import { TranslationContext } from "../../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const Playlists = ({ playlists }) => {
   const navigation = useNavigation();
@@ -18,7 +18,7 @@ const Playlists = ({ playlists }) => {
   const [isFollowed, setIsFollowed] = useState(
     followedPlaylists.map((item) => item.id)
   );
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   async function handleFollowAPlaylist(item) {
     try {

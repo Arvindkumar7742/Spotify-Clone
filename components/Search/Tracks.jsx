@@ -1,11 +1,11 @@
 import { View, Text, FlatList, Image, Pressable } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { TranslationContext } from "../../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const Tracks = ({ tracks }) => {
   const navigation = useNavigation();
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   return (
     <FlatList

@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import user from "../../assets/user.png";
-import { TranslationContext } from "../../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const Artists = ({ artists }) => {
   const navigation = useNavigation();
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   return (
     <FlatList

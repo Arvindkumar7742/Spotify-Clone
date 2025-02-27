@@ -1,12 +1,12 @@
 import { View, Text, FlatList } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 
 import HorizontalCards from "../Common/HorizontalCards";
 import HorizontalLoader from "../Common/HorizontalLoader";
-import { TranslationContext } from "../../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const RecentlyPlayed = ({ loading, refreshing, recentlyPlayed }) => {
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
   return (
     <>
       <View className="h-[10px]" />

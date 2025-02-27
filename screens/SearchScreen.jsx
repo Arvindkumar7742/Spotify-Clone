@@ -15,14 +15,14 @@ import TopTracks from "../components/TopTracks";
 import { getCategorizedResult } from "../services/operations/search";
 import ShowSearchResults from "../components/Search/ShowSearchResults";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const SearchScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   const inputRef = useRef(null);
 

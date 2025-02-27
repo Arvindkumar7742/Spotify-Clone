@@ -22,7 +22,7 @@ import {
 import { reduceUniqueSongs } from "../utils/getUniqueSongs";
 import { FollowedPlaylistContext } from "../context/FollowedPlaylistContext";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const PlaylistScreen = () => {
   const navigation = useNavigation();
@@ -36,7 +36,7 @@ const PlaylistScreen = () => {
     followedPlaylists.map((item) => item.id)
   );
   const [loading, setLoading] = useState(false);
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   // function to follow a playlist
   async function handleFollowAPlaylist() {

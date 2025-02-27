@@ -2,18 +2,20 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Entypo } from "@expo/vector-icons";
+import Fontisto from "@expo/vector-icons/Fontisto";
 import { useNavigation } from "@react-navigation/native";
 
 import { UserContext } from "../context/UserContext";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { user } = useContext(UserContext);
-  const { langJsonData } = useContext(TranslationContext);
-  console.log("jkbb===>>>>", langJsonData);
+  const { langJsonData } = useSelector((state) => state.lang);
 
+  function handleSettingPress() {
+    navigation.navigate("settings");
+  }
   return (
     <View className="flex-1">
       <LinearGradient
@@ -68,7 +70,9 @@ const ProfileScreen = () => {
               {langJsonData["edit"]}
             </Text>
           </TouchableOpacity>
-          <Entypo name="dots-three-vertical" size={22} color="white" />
+          <TouchableOpacity onPress={handleSettingPress}>
+            <Fontisto name="player-settings" size={24} color="white" />
+          </TouchableOpacity>
         </View>
       </LinearGradient>
 

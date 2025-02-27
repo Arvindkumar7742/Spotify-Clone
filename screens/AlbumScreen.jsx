@@ -16,7 +16,7 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import { reduceUniqueSongs } from "../utils/getUniqueSongs";
 import { getAlbumTracks } from "../services/operations/album";
 import HorizontalLoader from "../components/Common/HorizontalLoader";
-import { TranslationContext } from "../context/TranslationContext";
+import { useSelector } from "react-redux";
 
 const AlbumScreen = () => {
   const navigation = useNavigation();
@@ -24,7 +24,7 @@ const AlbumScreen = () => {
   const { item } = route.params;
   const [albumTracks, setAlbumTracks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { langJsonData } = useContext(TranslationContext);
+  const { langJsonData } = useSelector((state) => state.lang);
 
   useEffect(() => {
     // fetch all the album track when initially rendered
