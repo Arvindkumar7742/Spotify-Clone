@@ -1,16 +1,16 @@
 import React from "react";
 
-import "../global.css";
-import Navigation from "../StackNavigator";
-import { UserContextProvider } from "../context/UserContext";
-import { LikedSongsContextProvider } from "../context/LikedSongsContext";
-import { FollowedPlayListContextProvider } from "../context/FollowedPlaylistContext";
+import "./global.css";
+import Navigation from "./StackNavigator";
+import { UserContextProvider } from "./context/UserContext";
+import { LikedSongsContextProvider } from "./context/LikedSongsContext";
+import { FollowedPlayListContextProvider } from "./context/FollowedPlaylistContext";
 import { Provider } from "react-redux";
-import { store } from "../redux/store";
+import { store } from "./redux/store";
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
 
-const RootLayout = () => {
+const App = () => {
   let presistor = persistStore(store, { timeout: 10000 });
 
   return (
@@ -30,4 +30,4 @@ const RootLayout = () => {
   );
 };
 
-export default RootLayout;
+export default App;

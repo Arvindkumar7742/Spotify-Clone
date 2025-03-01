@@ -23,6 +23,7 @@ import AlbumScreen from "./screens/AlbumScreen";
 import PlaylistScreen from "./screens/PlaylistScreen";
 import SettingScreen from "./screens/SettingScreen";
 import { useSelector } from "react-redux";
+import * as Linking from "expo-linking";
 
 const Tab = createBottomTabNavigator();
 
@@ -111,62 +112,72 @@ function BottomTabs() {
 
 const Stack = createNativeStackNavigator();
 
+const prefix = Linking.createURL("/");
+
 // function to create the Navigation to be used in home
 function Navigation() {
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        SongInfo: {
+          path: "SongInfo/:id",
+        },
+      },
+    },
+  };
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="black" />
-      <NavigationIndependentTree>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Main"
-              component={BottomTabs}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Liked"
-              component={LikedSongsScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Profile"
-              component={ProfileScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ArtistScreen"
-              component={ArtistScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SongInfo"
-              component={SongInfo}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="AlbumPage"
-              component={AlbumScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="PlaylistPage"
-              component={PlaylistScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="settings"
-              component={SettingScreen}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </NavigationIndependentTree>
+      <NavigationContainer linking={linking}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Main"
+            component={BottomTabs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Liked"
+            component={LikedSongsScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ArtistScreen"
+            component={ArtistScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SongInfo"
+            component={SongInfo}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AlbumPage"
+            component={AlbumScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PlaylistPage"
+            component={PlaylistScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="settings"
+            component={SettingScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 }
