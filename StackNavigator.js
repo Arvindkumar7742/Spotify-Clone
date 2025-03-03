@@ -114,7 +114,7 @@ function Navigation() {
   const linking = {
     prefixes: [
       Linking.createURL(""),
-      "https://mini-page-builder-smoky.vercel.app/app",
+      "https://spotify-server-six.vercel.app/app",
     ],
     config: {
       screens: {

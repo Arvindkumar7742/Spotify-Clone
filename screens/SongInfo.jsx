@@ -70,7 +70,7 @@ const SongInfo = () => {
 
   async function handleShareClick() {
     try {
-      const url = `https://mini-page-builder-smoky.vercel.app/app/SongInfo/${trackData.id}`;
+      const url = `https://spotify-server-six.vercel.app/app/SongInfo/${trackData.id}`;
 
       // sharing the song
       await Share.share({

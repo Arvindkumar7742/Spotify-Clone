@@ -31,7 +31,7 @@
           "data": [
             {
               "scheme": "https",
-              "host": "mini-page-builder-smoky.vercel.app",
+              "host": "spotify-server-six.vercel.app",
               "pathPrefix": "/app"
             }
           ],
