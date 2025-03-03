@@ -40,6 +40,7 @@ const LoginScreen = () => {
     }
   );
 
+  console.log("Printing the redirect uri::==>>", authConfig.config.redirectUri);
   // handling login while clicking on the login button
   const handleLogin = async () => {
     if (!request || isAuthenticating) return;

@@ -116,7 +116,7 @@ const Stack = createNativeStackNavigator();
 function Navigation() {
   const linking = {
     prefixes: [
-      Linking.createURL("/"),
+      Linking.createURL(""),
       "https://mini-page-builder-smoky.vercel.app/app",
     ],
     config: {
@@ -124,9 +124,13 @@ function Navigation() {
         SongInfo: {
           path: "SongInfo/:id",
         },
+        Profile: {
+          path: "Profile",
+        },
       },
     },
   };
+  console.log("Printing the::==>>>", Linking.createURL(""));
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="black" />

@@ -19,9 +19,9 @@ export const authConfig = {
       "playlist-modify-public",
       "playlist-modify-private",
     ],
-    usePKCE: true,
+    usePKCE: false,
     redirectUri: makeRedirectUri({
-      scheme: "spotify-clone",
+      scheme: "myspotifyapp",
       useProxy: true,
     }),
   },
