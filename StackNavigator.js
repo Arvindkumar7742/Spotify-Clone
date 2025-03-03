@@ -112,12 +112,13 @@ function BottomTabs() {
 
 const Stack = createNativeStackNavigator();
 
-const prefix = Linking.createURL("/");
-
 // function to create the Navigation to be used in home
 function Navigation() {
   const linking = {
-    prefixes: [prefix],
+    prefixes: [
+      Linking.createURL("/"),
+      "https://mini-page-builder-smoky.vercel.app/app",
+    ],
     config: {
       screens: {
         SongInfo: {
