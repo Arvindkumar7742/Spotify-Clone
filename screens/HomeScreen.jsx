@@ -31,7 +31,6 @@ const HomeScreen = () => {
   const [topArtists, setTopArtists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  // const { langJsonData } = useContext(TranslationContext);
   const { langJsonData } = useSelector((state) => state.lang);
 
   const { lang } = useSelector((state) => state.lang);

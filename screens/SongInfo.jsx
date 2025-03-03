@@ -5,6 +5,7 @@ import {
   Image,
   Pressable,
   Alert,
+  Share,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -13,6 +14,7 @@ import {
   MaterialCommunityIcons,
   AntDesign,
   MaterialIcons,
+  Entypo,
 } from "@expo/vector-icons";
 import { ProgressBar } from "react-native-paper";
 import { useContext, useEffect, useState } from "react";
@@ -66,6 +68,23 @@ const SongInfo = () => {
     }
   }
 
+  async function handleShareClick() {
+    try {
+      const url = `https://mini-page-builder-smoky.vercel.app/app/SongInfo/${trackData.id}`;
+
+      // sharing the song
+      await Share.share({
+        message: `Hey! I am listening to ${
+          trackData.name
+        } by ${trackData.artists
+          .map((artist) => artist.name)
+          .join(", ")} on Spotify. Check it out!\n${url}`,
+      });
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    }
+  }
+
   useEffect(() => {
     async function fetchTrackData(id) {
       try {
@@ -95,18 +114,23 @@ const SongInfo = () => {
     >
       {trackData && (
         <View className="flex w-[85%] h-full">
-          <TouchableOpacity
-            onPress={() => {
-              if (navigation.canGoBack()) {
-                navigation.goBack();
-              } else {
-                navigation.navigate("Main"); // Or navigate to any default screen
-              }
-            }}
-            className="mt-4"
-          >
-            <Ionicons name="arrow-back-outline" size={28} color="white" />
-          </TouchableOpacity>
+          <View className="flex-row justify-between items-center">
+            <TouchableOpacity
+              onPress={() => {
+                if (navigation.canGoBack()) {
+                  navigation.goBack();
+                } else {
+                  navigation.navigate("Main"); // Or navigate to any default screen
+                }
+              }}
+              className="mt-4"
+            >
+              <Ionicons name="arrow-back-outline" size={28} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleShareClick}>
+              <Entypo className="mt-4" name="share" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
           <View className="items-center mt-18">
             <Image
               source={{
