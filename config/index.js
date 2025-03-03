@@ -19,9 +19,10 @@ export const authConfig = {
       "playlist-modify-public",
       "playlist-modify-private",
     ],
-    usePKCE: false,
+    usePKCE: true,
     redirectUri: makeRedirectUri({
       scheme: "myspotifyapp",
+      path: "Login",
       useProxy: true,
     }),
   },

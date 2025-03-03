@@ -124,6 +124,12 @@ function Navigation() {
         Profile: {
           path: "Profile",
         },
+        Main: {
+          path: "Main",
+        },
+        Login: {
+          path: "Login",
+        },
       },
     },
   };
