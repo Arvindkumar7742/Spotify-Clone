@@ -20,7 +20,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.webp",
+        "foregroundImage": "./assets/splash-icon-spotify.png",
         "backgroundColor": "#ffffff"
       },
       "usesCleartextTraffic": true,
