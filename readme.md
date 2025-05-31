@@ -6,19 +6,19 @@ A Spotify Clone built using modern web technologies, replicating core features o
 
 ### 1. log-in
 
-<img src="./assets/screenshorts/login_screen.jpeg" width="200" height="200"/>
+<img src="./assets/screenshorts/login_screen.jpeg" width="150" height="350"/>
 
 ### Tabs
 
-<img src="./assets/screenshorts/home_screen.jpeg" width="200" height="200"/>
-<img src="./assets/screenshorts/Top_tracks.jpeg" width="200" height="200"/>
-<img src="./assets/screenshorts/library.jpeg" width="200" height="200"/>
+<img src="./assets/screenshorts/home_screen.jpeg" width="200" height="400"/>
+<img src="./assets/screenshorts/Top_tracks.jpeg" width="200" height="400"/>
+<img src="./assets/screenshorts/library.jpeg" width="200" height="400"/>
 
 ### Artist, Album and Playlist screens
 
-<img src="./assets/screenshorts/artist.jpeg" width="200" height="200"/>
-<img src="./assets/screenshorts/playlist.jpeg" width="200" height="200"/>
-<img src="./assets/screenshorts/album.jpeg" width="200" height="200"/>
+<img src="./assets/screenshorts/artist.jpeg" width="200" height="400"/>
+<img src="./assets/screenshorts/playlist.jpeg" width="200" height="400"/>
+<img src="./assets/screenshorts/album.jpeg" width="200" height="400"/>
 
 ## Features
 
@@ -55,6 +55,23 @@ A Spotify Clone built using modern web technologies, replicating core features o
 - View followed artists and their latest music
 - Like and unlike songs with a single click
 
+### Shareable Song Functionality
+
+- Users can share songs with each other using deep linking
+- Deep links redirect through a universal link (web domain) and then open the app at the shared song location for a seamless experience
+
+### Multilingual Support
+
+- Users can change the app language from the Settings screen
+- Language content is fetched dynamically from the server to support future additions without app updates
+- The selected language is cached using AsyncStorage, ensuring persistence across sessions
+
+## 🎥 Demo Video
+
+<a href="https://drive.google.com/drive/u/0/folders/1kY6vWRmDQJaKG-b1KheaYasDQRbubEje" target="_blank">
+    <img src="./assets/screenshorts/home_screen.jpeg" width="100" height="200"/>
+</a>
+
 ---
 
 ## Tech Stack
@@ -65,6 +82,7 @@ A Spotify Clone built using modern web technologies, replicating core features o
 - Spotify Web API for fetching music data
 - OAuth 2.0 for user authentication
 - Tailwind CSS for responsive and modern styling
+- React-native libraries for implementing the functionality like deep linking and share song. 
 
 ---
 
